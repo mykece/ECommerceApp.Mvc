@@ -1,0 +1,75 @@
+﻿@model ETicaret.UI.Areas.Admin.Models.CustomerVMs.CreateAddressVM
+
+@* <div class="row">
+    <div class="col-md-8">
+        <form asp-action="CreateAddress" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group" style="display: none;">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="AddressName" class="control-label"></label>
+                <input asp-for="AddressName" class="form-control w-100" />
+                <span asp-validation-for="AddressName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control w-100" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="display: none;">
+                <label asp-for="CustomerId" class="control-label"></label>
+                <input asp-for="CustomerId" class="form-control" />
+                <span asp-validation-for="CustomerId" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} *@
+
+<form asp-action="CreateAddress" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-floating" style="display: none;">
+        <input asp-for="Id" class="form-control" id="floatingInputId" />
+        <label for="floatingInputId">@Localizer["Id"]</label>
+        <span asp-validation-for="Id" class="text-danger"></span>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input asp-for="AddressName" class="form-control" id="floatingInputAddressName" type="text" placeholder="Address Name">
+        <label for="floatingInputAddressName">@Localizer["Address Name"]</label>
+        <span asp-validation-for="AddressName" class="text-danger"></span>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input asp-for="Address" class="form-control" id="floatingInputAddress" type="text" placeholder="Address">
+        <label for="floatingInputAddress">@Localizer["Address"]</label>
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+
+    <div class="form-floating" style="display: none;">
+        <input asp-for="CustomerId" class="form-control" id="floatingInputCustomerId" />
+        <label for="floatingInputCustomerId">@Localizer["Customer Id"]</label>
+        <span asp-validation-for="CustomerId" class="text-danger"></span>
+    </div>
+
+    <button class="btn btn-outline-primary" type="submit">@Localizer["Create"]</button>
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+</form>
+
+
+
+

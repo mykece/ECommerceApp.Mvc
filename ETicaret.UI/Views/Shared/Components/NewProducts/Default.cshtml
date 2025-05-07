@@ -1,0 +1,210 @@
+﻿@model ETicaret.UI.Areas.Admin.Models.ProductVMs.LastProductsVM
+@{
+    // Sabit bir dönüşüm oranı belirliyoruz. Bu oranı gerçek verilerle değiştirmeniz gerekebilir.
+    const decimal conversionRate = 0.034m; // Örneğin, 1 TL = 0.036 USD
+
+    // Mevcut kültürü alıyoruz.
+    var currentCulture = System.Globalization.CultureInfo.CurrentCulture.Name;
+}
+<!-- ARRIVALS -->
+@* <section class="py-12">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+
+                <!-- Heading -->
+                <h2 class="mb-10 text-center">Yeni Ürünler</h2>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="flickity-page-dots-progress" data-flickity='{"pageDots": true}'>
+        <div class="row">
+            @if (Model.IsAuthenticated)
+            {
+                foreach (var item in Model.Products)
+                {
+                    <div class="col px-4" style="max-width: 300px;">
+                        <div class="card">
+                            <!-- Image -->
+                            <div class="card-img">
+                                <!-- Action -->
+                                <button class="btn btn-xs btn-circle btn-white-primary card-action card-action-end" data-toggle="button">
+                                    <i class="fe fe-heart"></i>
+                                </button>
+
+                                <!-- Button -->
+                                <button class="btn btn-xs w-100 btn-dark card-btn" data-bs-toggle="modal" data-bs-target="#modalProduct">
+                                    <i class="fe fe-eye me-2 mb-1"></i> Quick View
+                                </button>
+
+                                <!-- Image -->
+                                <img class="card-img-top" src="@(
+                                item.Image != null
+                                ? $"data:image/png;base64,{Convert.ToBase64String(item.Image)}"
+                                : "https://www.trexes.com.tr/wp-content/uploads/2020/03/urun-resmi-yok.jpg")" alt="...">
+                            </div>
+
+                            <!-- Body -->
+                            <div class="card-body fw-bold text-center">
+                                <a class="text-body" href="@Url.Action("Details", "Product", new { id = item.Id })">@item.Name</a> <br>
+                                <span class="text-muted">₺@item.UnitPrice</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                foreach (var item in Model.Products)
+                {
+                    <div class="col px-4" style="max-width: 300px;">
+                        <div class="card">
+                            <!-- Image -->
+                            <div class="card-img">
+                                <!-- Action -->
+                                <button class="btn btn-xs btn-circle btn-white-primary card-action card-action-end" data-toggle="button">
+                                    <i class="fe fe-heart"></i>
+                                </button>
+
+                                <!-- Button -->
+                                <button class="btn btn-xs w-100 btn-dark card-btn" data-bs-toggle="modal" data-bs-target="#modalProduct">
+                                    <i class="fe fe-eye me-2 mb-1"></i> Quick View
+                                </button>
+
+                                <!-- Image -->
+                                <img class="card-img-top" src="@(
+                                item.Image != null
+                                ? $"data:image/png;base64,{Convert.ToBase64String(item.Image)}"
+                                : "https://www.trexes.com.tr/wp-content/uploads/2020/03/urun-resmi-yok.jpg")" alt="...">
+                            </div>
+
+                            <!-- Body -->
+                            <div class="card-body fw-bold text-center">
+                                <a class="text-body" href="@Url.Action("Details", "Product", new { id = item.Id })">@item.Name</a> <br>
+                                <span class="text-muted">Giriş Yapmalısınız!</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</section> *@
+
+<!-- ARRIVALS -->
+
+<section class="py-12" style="padding-left: 35px; padding-right: 35px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+
+                <!-- Heading -->
+                <h2 class="mb-10 text-center">Yeni Ürünler</h2>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="flickity-page-dots-progress" data-flickity='{"pageDots": true, "wrapAround": true, "prevNextButtons": true, "groupCells": true}'>
+       
+            @if (Model.IsAuthenticated)
+            {
+                foreach (var item in Model.Products)
+                {
+                var unitPriceInUsd = item.UnitPrice * conversionRate;
+                    <div class="col px-4" style="max-width: 300px;">
+                        <div class="card">
+                            <!-- Image -->
+                            <div class="card-img">
+                                <!-- Action -->
+                               @*  <button class="btn btn-xs btn-circle btn-white-primary card-action card-action-end" data-toggle="button">
+                                    <i class="fe fe-heart"></i>
+                                </button> *@
+
+                                <!-- Button -->
+                                <button class="btn btn-xs w-100 btn-dark card-btn" data-bs-toggle="modal" data-bs-target="#modalProduct">
+                                    <i class="fe fe-eye me-2 mb-1"></i> Quick View
+                                </button>
+
+                                <!-- Image -->
+                                <img class="card-img-top" style="height: 200px; object-fit: cover;" src="@(
+                                item.Image != null
+                                ? $"data:image/png;base64,{Convert.ToBase64String(item.Image)}"
+                                : "https://www.trexes.com.tr/wp-content/uploads/2020/03/urun-resmi-yok.jpg")" alt="...">
+                            </div>
+
+                            <!-- Body -->
+                            <div class="card-body fw-bold text-center">
+                            <a class="text-body" href="@Url.Action("Product", "Home", new { id = item.Id })">@item.Name</a> <br>
+                            @if (currentCulture == "tr")
+                            {
+                                <span class="text-muted">₺@item.UnitPrice.ToString("F2", new System.Globalization.CultureInfo("tr"))</span>
+                            }
+                            else
+                            {
+                                <span class="text-muted">$@unitPriceInUsd.ToString("F2")</span>
+                            }
+                            
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                foreach (var item in Model.Products)
+                {
+                    <div class="col px-4" style="max-width: 300px;">
+                        <div class="card">
+                            <!-- Image -->
+                            <div class="card-img">
+                                <!-- Action -->
+                                @* <button class="btn btn-xs btn-circle btn-white-primary card-action card-action-end" data-toggle="button">
+                                    <i class="fe fe-heart"></i>
+                                </button> *@
+
+                                <!-- Button -->
+                                <button class="btn btn-xs w-100 btn-dark card-btn" data-bs-toggle="modal" data-bs-target="#modalProduct">
+                                    <i class="fe fe-eye me-2 mb-1"></i> Quick View
+                                </button>
+
+                                <!-- Image -->
+                                <img class="card-img-top" style="height: 200px; object-fit: cover;"  src="@(
+                                item.Image != null
+                                ? $"data:image/png;base64,{Convert.ToBase64String(item.Image)}"
+                                : "https://www.trexes.com.tr/wp-content/uploads/2020/03/urun-resmi-yok.jpg")" alt="...">
+                            </div>
+
+                            <!-- Body -->
+                            <div class="card-body fw-bold text-center">
+                            <a class="text-body" href="@Url.Action("Product", "Home", new { id = item.Id })">@item.Name</a> <br>
+                                <span class="text-muted">Giriş Yapmalısınız!</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+ 
+</section>
+
+    <style>
+        .flickity-page-dots-progress {
+            padding-left: 45px;
+            padding-right: 45px;
+        }
+
+    </style>
+
+
+
+
+
+
+
+
+
+
+

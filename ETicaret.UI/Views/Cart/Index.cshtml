@@ -1,0 +1,306 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="~/assets/favicon/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="~/assets/css/libs.bundle.css">
+	<link rel="stylesheet" href="~/assets/css/theme.bundle.css">
+	<title>Shopping Cart</title>
+	<style>
+		.cart-item {
+			display: flex;
+			align-items: center;
+			border-bottom: 1px solid #e0e0e0;
+			padding: 15px 0;
+		}
+
+			.cart-item img {
+				width: 100px;
+				height: auto;
+				margin-right: 15px;
+			}
+
+		.cart-item-details {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+		}
+
+		.cart-item-info {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+			.cart-item-info span {
+				margin-right: 10px;
+			}
+
+		.remove-item {
+			cursor: pointer;
+			color: #ff4d4d;
+			font-size: 14px;
+		}
+
+		.quantity-controls {
+			display: flex;
+			align-items: center;
+			margin-right: 10px;
+		}
+
+			.quantity-controls button {
+				background-color: #f0f0f0;
+				border: 1px solid #ddd;
+				border-radius: 4px;
+				padding: 5px;
+				font-size: 14px;
+				cursor: pointer;
+				margin: 0 2px;
+			}
+
+			.quantity-controls input {
+				width: 40px;
+				text-align: center;
+				border: 1px solid #ddd;
+				border-radius: 4px;
+				margin: 0 5px;
+			}
+
+		.total-price {
+			margin-top: 5px;
+			margin-left: 10px;
+		}
+	</style>
+</head>
+<body>
+	<!-- CONTENT -->
+	<section class="pt-7 pb-12">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<!-- Heading -->
+					<h3 class="mb-10 text-center">Shopping Cart</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12 col-md-7">
+					<!-- List group -->
+					<ul id="cartItems" class="list-group list-group-lg list-group-flush-x mb-6">
+						<!-- Sepet ürünleri burada dinamik olarak eklenecek -->
+					</ul>
+				</div>
+				<div class="col-12 col-md-5 col-lg-4 offset-lg-1">
+					<!-- Total -->
+					<div class="card mb-7 bg-light">
+						<div class="card-body">
+							<ul class="list-group list-group-sm list-group-flush-y list-group-flush-x">
+								<li class="list-group-item d-flex">
+									<span>Subtotal</span> <span class="ms-auto fs-sm" id="subtotal">₺00.00</span>
+								</li>
+								<li class="list-group-item d-flex">
+									<span>Tax</span> <span class="ms-auto fs-sm" id="tax">₺00.00</span>
+								</li>
+								<li class="list-group-item d-flex fs-lg fw-bold">
+									<span>Total</span> <span class="ms-auto fs-sm" id="total">₺00.00</span>
+								</li>
+								<li class="list-group-item fs-sm text-center text-gray-500">
+									Shipping cost calculated at Checkout *
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<!-- Button -->
+					<button class="btn w-100 btn-dark mb-2" id="proceedToCheckout">Proceed to Checkout</button>
+
+					<!-- Link -->
+					<a class="btn btn-link btn-sm px-0 text-body" href="/Home/Index">
+						<i class="fe fe-arrow-left me-2"></i> Continue Shopping
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script src="~/assets/js/vendor.bundle.js"></script>
+	<script src="~/assets/js/theme.bundle.js"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const cartItemsElement = document.getElementById('cartItems');
+			let subtotal = 0; // Sepet toplamı
+
+			// SessionStorage'dan tüm cartItems'ı al
+			const storedItems = sessionStorage.getItem('cartItems');
+			if (storedItems) {
+				const cartItems = JSON.parse(storedItems);
+
+				if (cartItems.length === 0) {
+					// Sepet boşsa, sıfır değerleri göster
+					document.getElementById('subtotal').textContent = '₺00.00';
+					document.getElementById('total').textContent = '₺00.00';
+					document.getElementById('tax').textContent = '₺00.00';
+				} else {
+					// Her bir ürünü sepete ekle
+					cartItems.forEach((productData, index) => {
+						const unitPrice = parseFloat(productData.UnitPrice.replace('₺', '').trim());
+						const quantity = parseInt(productData.Quantity, 10);
+
+						if (isNaN(unitPrice) || isNaN(quantity)) {
+							console.error('Invalid UnitPrice or Quantity:', productData.UnitPrice, productData.Quantity);
+							return;
+						}
+
+						const totalPrice = unitPrice * quantity;
+						subtotal += totalPrice;
+
+						const listItem = document.createElement('li');
+						listItem.className = 'list-group-item cart-item';
+						listItem.innerHTML = `
+													<img src="data:image/jpeg;base64,${productData.ImageSrc}" alt="${productData.ProductName}">
+													<div class="cart-item-details">
+														<div class="cart-item-info">
+															<span><strong>Product Name:</strong> ${productData.ProductName}</span>
+															<span><strong>Size:</strong> ${productData.SizeName}</span>
+															<div class="quantity-controls">
+																<button onclick="updateQuantity(${index}, -1)">-</button>
+																<input type="text" id="quantity-${index}" value="${quantity}" readonly>
+																<button onclick="updateQuantity(${index}, 1)">+</button>
+															</div>
+															<span class="total-price"><strong>Total Price:</strong> ₺<span id="totalPrice-${index}">${totalPrice.toFixed(2)}</span></span>
+															<span class="remove-item" onclick="removeItem(${index})">
+																<i class="fe fe-x"></i> Remove
+															</span>
+														</div>
+													</div>
+												`;
+						cartItemsElement.appendChild(listItem);
+					});
+
+					updateTotals();
+				}
+			} else {
+				document.getElementById('subtotal').textContent = '₺00.00';
+				document.getElementById('total').textContent = '₺00.00';
+				document.getElementById('tax').textContent = '₺00.00';
+			}
+		});
+
+		function updateQuantity(index, change) {
+			const storedItems = sessionStorage.getItem('cartItems');
+			if (storedItems) {
+				const cartItems = JSON.parse(storedItems);
+
+				const productData = cartItems[index];
+				const unitPrice = parseFloat(productData.UnitPrice.replace('₺', '').trim());
+				let quantity = parseInt(productData.Quantity, 10);
+
+				quantity += change;
+				if (quantity < 1) {
+					quantity = 1;
+				}
+
+				productData.Quantity = quantity;
+				cartItems[index] = productData;
+				sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+				const totalPrice = unitPrice * quantity;
+				document.getElementById(`totalPrice-${index}`).textContent = totalPrice.toFixed(2);
+				document.getElementById(`quantity-${index}`).value = quantity;
+
+				updateTotals();
+			}
+		}
+
+		function updateTotals() {
+			const storedItems = sessionStorage.getItem('cartItems');
+			if (storedItems) {
+				const cartItems = JSON.parse(storedItems);
+				let subtotal = 0;
+
+				cartItems.forEach((productData) => {
+					const unitPrice = parseFloat(productData.UnitPrice.replace('₺', '').trim());
+					const quantity = parseInt(productData.Quantity, 10);
+					if (!isNaN(unitPrice) && !isNaN(quantity)) {
+						const totalPrice = unitPrice * quantity;
+						subtotal += totalPrice;
+					}
+				});
+
+				document.getElementById('subtotal').textContent = `₺${subtotal.toFixed(2)}`;
+				document.getElementById('total').textContent = `₺${subtotal.toFixed(2)}`;
+				document.getElementById('tax').textContent = `₺00.00`;
+			} else {
+				document.getElementById('subtotal').textContent = '₺00.00';
+				document.getElementById('total').textContent = '₺00.00';
+				document.getElementById('tax').textContent = '₺00.00';
+			}
+		}
+
+		function removeItem(index) {
+			const storedItems = sessionStorage.getItem('cartItems');
+			if (storedItems) {
+				const cartItems = JSON.parse(storedItems);
+
+				cartItems.splice(index, 1);
+				sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
+				location.reload();
+			}
+		}
+
+		document.getElementById('proceedToCheckout').addEventListener('click', function () {
+			const storedItems = sessionStorage.getItem('cartItems');
+			if (storedItems) {
+				const cartItems = JSON.parse(storedItems);
+
+				// Her bir ürünü formda eklemek için bir loop
+				const form = document.createElement('form');
+				form.method = 'post';
+				form.action = '/Order/Checkout'; // URL'yi OrderController'daki Checkout metoduna yönlendir
+
+				cartItems.forEach((productData, index) => {
+					const quantityInput = document.createElement('input');
+					quantityInput.type = 'hidden';
+					quantityInput.name = `orderCreateVMs[${index}].Quantity`;
+					quantityInput.value = productData.Quantity;
+					form.appendChild(quantityInput);
+
+					const sizeInput = document.createElement('input');
+					sizeInput.type = 'hidden';
+					sizeInput.name = `orderCreateVMs[${index}].SizeName`;
+					sizeInput.value = productData.SizeName;
+					form.appendChild(sizeInput);
+
+					const sizeIdInput = document.createElement('input');
+					sizeIdInput.type = 'hidden';
+					sizeIdInput.name = `orderCreateVMs[${index}].SizeId`; // SizeId'yi ekleyin
+					sizeIdInput.value = productData.SizeId; // Veriyi burada ayarlayın
+					form.appendChild(sizeIdInput);
+
+					const nameInput = document.createElement('input');
+					nameInput.type = 'hidden';
+					nameInput.name = `orderCreateVMs[${index}].ProductName`;
+					nameInput.value = productData.ProductName;
+					form.appendChild(nameInput);
+
+					const priceInput = document.createElement('input');
+					priceInput.type = 'hidden';
+					priceInput.name = `orderCreateVMs[${index}].UnitPrice`;
+					priceInput.value = productData.UnitPrice.replace('₺', '').trim();
+					form.appendChild(priceInput);
+
+
+					const imageInput = document.createElement('input');
+					imageInput.type = 'hidden';
+					imageInput.name = `orderCreateVMs[${index}].ImageSrc`;
+					imageInput.value = productData.ImageSrc;
+					form.appendChild(imageInput);
+				});
+
+				document.body.appendChild(form);
+				form.submit();
+			}
+		});
+	</script>
+</body>
+</html>

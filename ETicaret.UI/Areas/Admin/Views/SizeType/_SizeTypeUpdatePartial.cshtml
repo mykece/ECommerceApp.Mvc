@@ -1,0 +1,15 @@
+﻿@model ETicaret.UI.Areas.Admin.Models.SizeTypesVMs.SizeTypeUpdateVM
+
+<form asp-action="Update">
+ 
+    <div class="form-floating mb-3">
+        <input asp-for="SizeTypeName" class="form-control" />
+        <label for="floatingInputName">@Localizer["SizeTypeName"]</label>
+        <span asp-validation-for="SizeTypeName" class="text-danger"></span>
+    </div>
+    <button class="btn btn-outline-primary" type="submit">@Localizer["Update"]</button>
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+</form>

@@ -1,0 +1,353 @@
+﻿@model ETicaret.UI.Areas.Admin.Models.ProductVMs.ProductCreateVM
+
+<form asp-action="Create" enctype="multipart/form-data" method="post">
+    <div class="form-group mb-3">
+        <label for="floatingInputName">@Localizer["NewImage"]</label>
+        <input type="file" asp-for="NewImage" class="form-control" />
+        <span asp-validation-for="NewImage" class="text-danger"></span>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="Name" class="form-control" id="floatingInputName" type="text" placeholder="Ali">
+        <label for="floatingInputName">@Localizer["Name"]</label>
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label for="floatingInputDescription" class="form-label">@Localizer["Description"]</label>
+        <textarea asp-for="Description" class="form-control" id="floatingInputDescription" rows="5"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-floating mb-3">
+        <select asp-for="Gender" class="form-control" id="floatingSelectGender">
+            <option value="0">@Localizer["Man"]</option>
+            <option value="1">@Localizer["Woman"]</option>
+            <option value="2">@Localizer["Unisex"]</option>
+        </select>
+        <label for="floatingSelectGender">@Localizer["Gender"]</label>
+        <span asp-validation-for="Gender" class="text-danger"></span>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="UnitPrice" class="form-control" id="floatingInputUnitPrice" type="number" placeholder="example@bilgeadam.com">
+        <label for="floatingInputUnitPrice">@Localizer["UnitPrice"]</label>
+        <span asp-validation-for="UnitPrice" class="text-danger"></span>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="Quantity" class="form-control" id="floatingInputQuantity" type="number" placeholder="example@bilgeadam.com">
+        <label for="floatingInputQuantity">@Localizer["Quantity"]</label>
+        <span asp-validation-for="Quantity" class="text-danger"></span>
+    </div>
+
+    @*     <div class="mb-3">
+    <label class="form-label">@Localizer["Categories"]</label>
+    <div>
+    @foreach (var category in Model.Categories)
+    {
+    <div class="form-check">
+    <input class="form-check-input category-checkbox" type="checkbox" name="CategoryIds" value="@category.Value" id="category_@category.Value">
+    <label class="form-check-label" for="category_@category.Value">
+    @category.Text
+    </label>
+    </div>
+    }
+    </div>
+    <span asp-validation-for="CategoryIds" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+    <label class="form-label">@Localizer["Sizes"]</label>
+    <div id="sizeContainer">
+    @foreach (var size in Model.Sizes)
+    {
+    <div class="form-check">
+    <input class="form-check-input" type="checkbox" name="SizeIds" value="@size.Value" id="size_@size.Value">
+    <label class="form-check-label" for="size_@size.Value">
+    @size.Text
+    </label>
+    </div>
+    }
+    </div>
+    </div>
+
+    <button type="button" id="add-to-list" class="btn btn-info btn-create-new ladda-button mb-1" data-style="zoom-out">Listeye Ekle</button>
+
+    <div class="modal-content">
+    <div class="modal-header">
+    <h4 class="card-heading" id="adminCreateModalLabel">@Localizer["LİSTEDEKİ ÜRÜNLER"]</h4>
+    </div>
+    <ul id="category-size-list" class="list-group">
+    </ul>
+
+    <button type="submit" class="btn btn-info btn-create-new ladda-button mb-1" data-style="zoom-out">Tümünü Kaydet</button>
+    </div> *@
+    <div id="categorySection" class="mb-3">
+        <label class="form-label"><strong>@Localizer["Categories"]</strong></label>
+        <select name="categoryMultiSelect" id="categoryMultiSelect" multiple class="form-control">
+            @foreach (var category in Model.Categories)
+            {
+                <option value="@category.Value">@category.Text</option>
+            }
+        </select>
+    </div>
+
+    <div id="sizeSection" class="mb-3">
+        <label class="form-label"><strong>@Localizer["Sizes"]</strong></label>
+        <select name="sizeMultiSelect" id="sizeMultiSelect" multiple class="form-control">
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <button type="button" id="addItemButton" class="btn btn-primary">Ürün Ekle</button>
+    </div>
+    <div class="mb-3">
+        <ul id="itemList" class="list-group">
+            <!-- Ürünler buraya eklenecek -->
+        </ul>
+    </div>
+
+    <div class="mb-3">
+        <button type="submit" id="saveButton" class="btn btn-success">Kaydet</button>
+    </div>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            console.log("Sayfa yüklendi ve jQuery hazır.");
+
+            let sizeMultiSelectTag = new MultiSelectTag('sizeMultiSelect', {
+                rounded: true,
+                shadow: true,
+                placeholder: 'Search',
+                tagColor: {
+                    textColor: '#327b2c',
+                    borderColor: '#92e681',
+                    bgColor: '#eaffe6',
+                },
+                onChange: function (values) {
+                    console.log("Seçilen sizelar:", values);
+                    localStorage.setItem('selectedSizeIds', JSON.stringify(values));
+                }
+            });
+
+            new MultiSelectTag('categoryMultiSelect', {
+                rounded: true,
+                shadow: true,
+                placeholder: 'Search',
+                tagColor: {
+                    textColor: '#327b2c',
+                    borderColor: '#92e681',
+                    bgColor: '#eaffe6',
+                },
+                onChange: function (values) {
+                    console.log("Seçilen kategoriler:", values);
+                    localStorage.setItem('selectedCategoryIds', JSON.stringify(values));
+
+                    $.ajax({
+                        url: '@Url.Action("GetSizesByCategoryIds", "Product")',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(values),
+                        success: function (response) {
+                            console.log("Bedenler alındı:", response);
+
+                            $('#sizeMultiSelect').empty();
+
+                            if (Array.isArray(response)) {
+                                if (response.length === 0) {
+                                    console.log("Listelenecek size bulunamadı.");
+
+                                    $('#sizeMultiSelect').next('.mult-select-tag').remove();
+
+                                    sizeMultiSelectTag = new MultiSelectTag('sizeMultiSelect', {
+                                        rounded: true,
+                                        shadow: true,
+                                        placeholder: 'Search',
+                                        tagColor: {
+                                            textColor: '#327b2c',
+                                            borderColor: '#92e681',
+                                            bgColor: '#eaffe6',
+                                        },
+                                        onChange: function (values) {
+                                            console.log("Seçilen boyutlar:", values);
+                                            localStorage.setItem('selectedSizeIds', JSON.stringify(values));
+                                        }
+                                    });
+                                    return;
+
+                                } else {
+                                    response.forEach(function (item) {
+                                        if (item && item.text && item.value) {
+                                            $('#sizeMultiSelect').append(new Option(item.text, item.value));
+                                        }
+                                    });
+
+                                    $('#sizeMultiSelect').next('.mult-select-tag').remove();
+
+                                    sizeMultiSelectTag = new MultiSelectTag('sizeMultiSelect', {
+                                        rounded: true,
+                                        shadow: true,
+                                        placeholder: 'Search',
+                                        tagColor: {
+                                            textColor: '#327b2c',
+                                            borderColor: '#92e681',
+                                            bgColor: '#eaffe6',
+                                        },
+                                        onChange: function (values) {
+                                            console.log("Seçilen boyutlar:", values);
+                                            localStorage.setItem('selectedSizeIds', JSON.stringify(values));
+                                        }
+                                    });
+                                }
+                            } else {
+                                console.error("Beklenmeyen formatta veri alındı:", response);
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Bir hata oluştu:", error);
+                        }
+                    });
+                }
+            });
+
+            $('#addItemButton').click(function () {
+                let productName = $('#floatingInputName').val();
+                let categoryNames = $('#categoryMultiSelect option:selected').map(function () {
+                    return this.text;
+                }).get();
+                let categoryIds = $('#categoryMultiSelect').val();
+                let unitPrice = $('#floatingInputUnitPrice').val();
+                let quantity = $('#floatingInputQuantity').val();
+                let sizeIds = $('#sizeMultiSelect').val();
+                let sizeNames = $('#sizeMultiSelect option:selected').map(function () {
+                    return this.text;
+                }).get();
+                let gender = $('#floatingSelectGender').val();
+                let genderText = $('#floatingSelectGender option:selected').text();
+
+                if (sizeIds && sizeIds.length > 0 && categoryIds && categoryIds.length > 0) {
+                    categoryIds.forEach((categoryId, catIndex) => {
+                        sizeIds.forEach((sizeId, sizeIndex) => {
+                            let item = {
+                                ProductName: productName,
+                                CategoryName: categoryNames[catIndex],
+                                UnitPrice: unitPrice,
+                                Quantity: quantity,
+                                SizeId: sizeId,
+                                SizeName: sizeNames[sizeIndex],
+                                Gender: gender,           
+                                GenderText: genderText
+                            };
+
+                            let itemList = JSON.parse(localStorage.getItem('itemList')) || [];
+                            itemList.push(item);
+                            localStorage.setItem('itemList', JSON.stringify(itemList));
+                        });
+                    });
+
+                    renderItemList();
+                } else {
+                    console.error("Kategori veya Size ID'leri seçilmedi.");
+                }
+            });
+
+            function renderItemList() {
+                let itemList = JSON.parse(localStorage.getItem('itemList')) || [];
+                $('#itemList').empty();
+                itemList.forEach((item, index) => {
+                    $('#itemList').append(
+                        `<li class="list-group-item">
+                                        ${item.ProductName} - ${item.CategoryName} - ${item.UnitPrice} - ${item.Quantity} - ${item.SizeName}
+                                        <button type="button" class="btn btn-danger btn-sm float-end" data-index="${index}">Sil</button>
+                                    </li>`
+                    );
+                });
+            }
+
+            $('#itemList').on('click', '.btn-danger', function () {
+                let index = $(this).data('index');
+                let itemList = JSON.parse(localStorage.getItem('itemList')) || [];
+                itemList.splice(index, 1);
+                localStorage.setItem('itemList', JSON.stringify(itemList));
+                renderItemList();
+            });
+
+            renderItemList();
+
+            $('#saveButton').click(function (event) {
+                 event.preventDefault(); // Formun otomatik olarak sunucuya gönderilmesini engeller. 
+
+                let formData = new FormData();
+                formData.append("ProductCreateVM.NewImage", $('#NewImage')[0].files[0]);
+                formData.append("ProductCreateVM.Name", $('#floatingInputName').val());
+                formData.append("ProductCreateVM.Description", $('#floatingInputDescription').val());
+                formData.append("ProductCreateVM.UnitPrice", $('#floatingInputUnitPrice').val());
+                formData.append("ProductCreateVM.Quantity", $('#floatingInputQuantity').val());
+                formData.append("ProductCreateVM.Gender", $('#floatingSelectGender').val());
+                // formData.append("CategoryIds", JSON.stringify(localStorage.getItem('selectedCategoryIds') || []));
+                // formData.append("SizeIds", JSON.stringify(localStorage.getItem('selectedSizeIds') || []));
+                // formData.append("CategorySizeTypeProductCreateDTOs", JSON.stringify(localStorage.getItem('itemList') || []));
+
+
+                // CategoryIds'leri ekleme
+                const categoryIds = JSON.parse(localStorage.getItem('selectedCategoryIds') || '[]');
+                console.log("categoryIds:", categoryIds);
+                categoryIds.forEach(id => {
+                    console.log("Eklenen CategoryId:", id.value);
+                    formData.append("CategoryIds", id.value.toString());
+                });
+
+                // SizeIds'leri ekleme
+                const sizeIds = JSON.parse(localStorage.getItem('selectedSizeIds') || '[]');
+                console.log("sizeIds:", sizeIds);
+                sizeIds.forEach(id => {
+                    console.log("Eklenen SizeId:", id.value);
+                    formData.append("SizeIds", id.value.toString());
+                });
+
+                // CategorySizeTypeProductCreateDTOs'leri ayrı ayrı ekle
+                const categorySizeTypeProductCreateDTOs = JSON.parse(localStorage.getItem('itemList') || '[]');
+                categorySizeTypeProductCreateDTOs.forEach((item, index) => {
+                    formData.append(`CategorySizeTypeProductCreateDTOs[${index}].ProductId`, item.ProductId);
+                    formData.append(`CategorySizeTypeProductCreateDTOs[${index}].CategorySizeTypeId`, item.CategorySizeTypeId);
+                    formData.append(`CategorySizeTypeProductCreateDTOs[${index}].SizeId`, item.SizeId);
+                    formData.append(`CategorySizeTypeProductCreateDTOs[${index}].Quantity`, item.Quantity);
+
+                });
+
+                // formData'nın içeriği
+                for (let [key, value] of formData.entries()) {
+                    console.log(key, value);
+                }
+
+
+                $.ajax({
+                    url: '@Url.Action("Create", "Product")',
+                    type: 'POST',
+                    contentType: false,
+                    processData: false,
+                    data: formData,
+                    success: function (response) {
+                        console.log("Ürün başarıyla kaydedildi:", response);
+                        // Başarı mesajı gösterin veya yönlendirin
+                        localStorage.removeItem('selectedCategoryIds');
+                        localStorage.removeItem('selectedSizeIds');
+                        localStorage.removeItem('itemList');
+                        window.location.href = '@Url.Action("Index", "Product")';
+
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Bir hata oluştu:", error);
+                        // Hata mesajı gösterin
+                    }
+                });
+
+            });
+            // Sayfa kapatıldığında veya yenilendiğinde localStorage'ı temizle
+            window.addEventListener('beforeunload', function () {
+                localStorage.removeItem('selectedCategoryIds');
+                localStorage.removeItem('selectedSizeIds');
+                localStorage.removeItem('itemList');
+            });
+
+        });
+    </script>
+</form>

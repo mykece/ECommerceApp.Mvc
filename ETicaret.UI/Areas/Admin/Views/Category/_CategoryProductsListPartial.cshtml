@@ -1,0 +1,65 @@
+﻿@model IEnumerable<ETicaret.UI.Areas.Admin.Models.CategorySizeTypeProductVMs.CategorySizeTypeProductListVM>
+
+@{
+	ViewData["Title"] = "Product List";
+	Layout = null;
+	var row = 0;
+}
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css" />
+
+
+
+<div class="card-body">
+	<table id="tb1" class="table table-striped table-hover card-text">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>@Localizer["Image"] </th>
+				<th>@Localizer["ProductName"]</th>
+				<th>@Localizer["Size"]</th>
+				<th>@Localizer["Quantity"]</th>
+				<th>@Localizer["Price"]</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				row++;
+
+				<tr>
+					<th scope="row">@row</th>
+					<td>
+						@if (item.Image is null)
+						{
+							<img style="height: 50px; width: auto; object-fit: cover" src="https://st.depositphotos.com/1987177/3470/v/450/depositphotos_34700099-stock-illustration-no-photo-available-or-missing.jpg" />
+						}
+						else
+						{
+							<img style="height: 50px; width: auto; object-fit: cover" src="@($"data:image/png;base64,{Convert.ToBase64String(item.Image)}")" />
+						}
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.ProductName)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Size)
+
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Quantity)
+
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Price)
+
+					</td>
+
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+	

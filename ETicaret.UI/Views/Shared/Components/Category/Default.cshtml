@@ -1,0 +1,238 @@
+﻿@using System.Security.Claims
+@model IEnumerable<ETicaret.UI.Areas.Admin.Models.CategoryVMs.CategoryListVM>
+
+
+@* 2 seçenek ekledim birini silebilriz *@
+@* <section class="py-12">
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-12 col-md-4">
+                    <!-- Card -->
+                    <div class="card mb-7">
+                        <!-- Image -->
+                        @if (item.Image is null)
+                        {
+                            <img src="assets/img/products/product-58.jpg" alt="..." class="card-img">
+                        }
+                        else
+                        {
+                            <img src="@($"data:image/png;base64,{Convert.ToBase64String(item.Image)}")" alt="..." class="card-img">
+                        }
+                        <!-- Overlay -->
+                        <div class="card-img-overlay bg-dark-0 bg-hover align-items-center">
+                            <div class="text-center">
+                                <a class="btn btn-white stretched-link" href="@Url.Action("Category", "Home", new { id = item.Id })">
+                                    @item.Name <i class="fe fe-arrow-right ms-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section> *@
+
+@* <section class="py-12">
+    <div class="container" style="max-width: 1500px;">
+        <div class="row">
+            <div class="col-12">
+                <!-- Heading -->
+                <h2 class="mb-4 text-center">Shop by Category</h2>
+                <!-- Nav -->
+                <div class="nav justify-content-center mb-10">
+                    <a class="nav-link active" href="#womenTab" data-bs-toggle="tab">Women</a>
+                    <a class="nav-link" href="#menTab" data-bs-toggle="tab">Men</a>
+                </div>
+                <!-- Content -->
+                <div class="tab-content">
+                    <!-- Pane -->
+                    <div class="tab-pane fade show active" id="topSellersTab">
+                        <!-- Slider -->
+                        <div class="flickity-buttons-lg flickity-buttons-offset px-lg-12" data-flickity='{"prevNextButtons": true}'>
+                            @foreach (var item in Model)
+                            {
+                                <div class="col px-4" style="max-width: 200px;">
+                                    <div class="card">
+                                        <!-- Image -->
+                                        @if (item.Image is null)
+                                        {
+                                            <img src="assets/img/products/product-58.jpg" alt="..." class="card-img" style="height: 200px; object-fit: cover;">
+                                        }
+                                        else
+                                        {
+                                            <img class="card-img-top" src="@($"data:image/png;base64,{Convert.ToBase64String(item.Image)}")" alt="..." style="height: 200px; object-fit: cover;">
+                                        }
+                                        <!-- Body -->
+                                        <div class="card-body py-4 px-0 text-center">
+                                            <!-- Heading -->
+                                            <a class="stretched-link text-body" href="@Url.Action("Category", "Home", new { id = item.Id })">
+                                                <h6>@item.Name</h6>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> *@
+
+
+<section class="py-12">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+
+                <h2 class="mb-4 text-center">@Localizer["Shop by Category"]</h2>
+                <!-- Navigasyon -->
+                <div class="nav justify-content-center mb-10">
+                    <a class="nav-link active" href="#womenTab" data-bs-toggle="tab">@Localizer["Women"]</a>
+                    <a class="nav-link" href="#menTab" data-bs-toggle="tab">@Localizer["Men"]</a>
+                    <a class="nav-link" href="#unisexTab" data-bs-toggle="tab">@Localizer["Unisex"]</a>
+                </div>
+                <!-- İçerik -->
+                <div class="tab-content">
+                    <!-- Kadın Tabı -->
+                    <div class="tab-pane fade show active" id="womenTab">
+                        <!-- Kadın Kategorileri Slider -->
+                        <div class="flickity-buttons-lg flickity-buttons-offset px-lg-12 flickity-women" data-flickity='{"prevNextButtons": true}'>
+                            @foreach (var item in Model.Where(c => c.Gender == ETicaret.Domain.Enums.Gender.Woman))
+                            {
+                                <div class="col px-4" style="max-width: 200px;">
+                                    <div class="card">
+                                        @if (item.Image is null)
+                                        {
+                                            <img src="assets/img/products/product-58.jpg" alt="..." class="card-img" style="height: 200px; object-fit: cover;">
+                                        }
+                                        else
+                                        {
+                                            <img class="card-img-top" src="@($"data:image/png;base64,{Convert.ToBase64String(item.Image)}")" alt="..." style="height: 200px; object-fit: cover;">
+                                        }
+                                        <div class="card-body py-4 px-0 text-center">
+                                            <a class="stretched-link text-body" href="@Url.Action("CategoryProducts", "Home", new { id = item.Id })">
+                                                <h6>@item.Name</h6>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <!-- Erkek Tabı -->
+                    <div class="tab-pane fade" id="menTab">
+                        <!-- Erkek Kategorileri Slider -->
+                        <div class="flickity-buttons-lg flickity-buttons-offset px-lg-12 flickity-men" data-flickity='{"prevNextButtons": true}'>
+                            @foreach (var item in Model.Where(c => c.Gender == ETicaret.Domain.Enums.Gender.Man))
+                            {
+                                <div class="col px-4" style="max-width: 200px;">
+                                    <div class="card">
+                                        @if (item.Image is null)
+                                        {
+                                            <img src="assets/img/products/product-58.jpg" alt="..." class="card-img" style="height: 200px; object-fit: cover;">
+                                        }
+                                        else
+                                        {
+                                            <img class="card-img-top" src="@($"data:image/png;base64,{Convert.ToBase64String(item.Image)}")" alt="..." style="height: 200px; object-fit: cover;">
+                                        }
+                                        <div class="card-body py-4 px-0 text-center">
+                                            <!-- Heading -->
+                                            <a class="stretched-link text-body" href="@Url.Action("CategoryProducts", "Home", new { id = item.Id })">
+                                                <h6>@item.Name</h6>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <!-- Unisex Tabı -->
+                    <div class="tab-pane fade" id="unisexTab">
+                        <!-- Unisex Kategorileri Slider -->
+                        <div class="flickity-buttons-lg flickity-buttons-offset px-lg-12 flickity-unisex" data-flickity='{"prevNextButtons": true}'>
+                            @foreach (var item in Model.Where(c => c.Gender == ETicaret.Domain.Enums.Gender.Unisex))
+                            {
+                                <div class="col px-4" style="max-width: 200px;">
+                                    <div class="card">
+                                        @if (item.Image is null)
+                                        {
+                                            <img src="assets/img/products/product-58.jpg" alt="..." class="card-img" style="height: 200px; object-fit: cover;">
+                                        }
+                                        else
+                                        {
+                                            <img class="card-img-top" src="@($"data:image/png;base64,{Convert.ToBase64String(item.Image)}")" alt="..." style="height: 200px; object-fit: cover;">
+                                        }
+                                        <div class="card-body py-4 px-0 text-center">
+                                            <a class="stretched-link text-body" href="@Url.Action("CategoryProducts", "Home", new { id = item.Id })">
+                                                <h6>@item.Name</h6>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Kadın tabı  başlatma
+        var flickityOptions = {
+            prevNextButtons: true,
+            pageDots: false,
+            contain: true,
+        };
+
+        var flktyWomen = new Flickity('.flickity-women', flickityOptions);
+        var flktyMen = new Flickity('.flickity-men', flickityOptions);
+        var flktyUnisex = new Flickity('.flickity-unisex', flickityOptions);
+
+        // Sekme geçişi mantığı
+        var tabs = document.querySelectorAll('.nav-link');
+        var tabPanes = document.querySelectorAll('.tab-pane');
+       
+
+
+        tabs.forEach(function (tab) {
+            tab.addEventListener('click', function (e) {
+                e.preventDefault();
+                var targetId = this.getAttribute('href').substring(1);
+
+                tabs.forEach(function (t) {
+                    t.classList.remove('active');
+                });
+                tabPanes.forEach(function (pane) {
+                    pane.classList.remove('show', 'active');
+                });
+
+                this.classList.add('active');
+                document.getElementById(targetId).classList.add('show', 'active');
+
+                // Aktif sekme için 
+                if (targetId === 'womenTab') {
+                    flktyWomen.resize();
+                } else if (targetId === 'menTab') {
+                    flktyMen.resize();
+                }
+                else if (targetId === 'unisexTab') {
+                    flktyUnisex.resize();
+                }
+
+            });
+        });
+    });
+</script>
+
+
+
+

@@ -1,0 +1,85 @@
+﻿@using ETicaret.Domain.Enums
+
+@model List<ETicaret.UI.Areas.Admin.Models.ProductVMs.ProductListVM>
+
+
+@{
+    Layout = "_Layout";
+    const decimal conversionRate = 0.036m; // Örneğin, 1 TL = 0.036 USD
+    var currentCulture = System.Globalization.CultureInfo.CurrentCulture.Name;
+}
+
+<section class="py-12">
+    <div class="container">
+        <!-- Cinsiyet Filtreleme -->
+        <div class="d-flex justify-content-center mb-4">
+            <div class="btn-group" role="group">
+                <a href="@Url.Action("AllProducts", "Home", new { gender = (int)Gender.Man })" class="btn btn-outline-primary">Erkek</a>
+                <a href="@Url.Action("AllProducts", "Home", new { gender = (int)Gender.Woman })" class="btn btn-outline-primary">Kadın</a>
+                <a href="@Url.Action("AllProducts", "Home", new { gender = (int)Gender.Unisex })" class="btn btn-outline-primary">Unisex</a>
+                <a href="@Url.Action("AllProducts", "Home")" class="btn btn-outline-secondary">Tüm Ürünler</a>
+            </div>
+        </div>
+
+        <div class="row">
+            @foreach (var product in Model)
+            {
+                var unitPriceInUsd = product.UnitPrice * conversionRate;
+
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="card" style="width: 18rem;">
+                        <!-- Image -->
+                        @if (product.Image == null)
+                        {
+                            <img src="~/assets/img/products/default-product.jpg" alt="Product Image" class="card-img-top" style="height: 300px; object-fit: cover;" title="@product.Description" data-bs-toggle="tooltip" data-bs-placement="top">
+                        }
+                        else
+                        {
+                            <img class="card-img-top" src="@($"data:image/png;base64,{Convert.ToBase64String(product.Image)}")" alt="Product Image" style="height: 300px; object-fit: cover;" title="@product.Description" data-bs-toggle="tooltip" data-bs-placement="top">
+                        }
+                        <!-- Body -->
+                        <div class="card-body text-center">
+                            <!-- Product Name -->
+                            <h5 class="card-title">@product.Name</h5>
+@*                             <!-- Product Description -->
+                            <p class="card-text">@product.Description</p> *@
+                            <!-- Product Price -->
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                @if (currentCulture == "tr")
+                                {
+                                    <p class="card-text">₺@product.UnitPrice.ToString("F2", new System.Globalization.CultureInfo("tr"))</p>
+                                }
+                                else
+                                {
+                                    <p class="card-text">$@unitPriceInUsd.ToString("F2")</p>
+                                }
+                                <a href="@Url.Action("Product", "Home", new { id = product.Id })" class="btn btn-primary">@Localizer["Sepete Ekle"]</a>
+                            }
+                             else
+                            {
+                                <p class="card-text">Giriş Yapmalısınız!</p>
+                            }
+                            @* <!-- Product Quantity -->
+                            <p class="card-text">@Localizer["Stok Durumu:"] @product.Quantity</p> *@
+                            <!-- Product Gender -->
+                            <p class="card-text">@Localizer["Cinsiyet:"] @product.Gender</p>
+                           
+                            
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
+}
+

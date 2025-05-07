@@ -1,0 +1,263 @@
+﻿@model ETicaret.UI.Areas.Admin.Models.CampaignVMs.CampaignUpdateVM
+@{
+    // <link rel="stylesheet" type="text/css" href="~/css/virtual-select.min.css" />
+}
+<script src="~/js/select2.js"></script>
+<link href="~/css/addtrainer.css" rel="stylesheet" />
+<form id="campaignUpdateForm" asp-action="Update" enctype="multipart/form-data">
+   @*  modeline mevcut tarih bilgisini saklamak için *@
+    <input type="hidden" id="OriginalStartDate" value="@Model.StartDate" />
+
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group mb-3">
+        <label for="floatingInputName"><strong>@Localizer["NewImage"]</strong></label>
+        <input type="file" asp-for="NewImage" class="form-control" />
+        <span asp-validation-for="NewImage" class="text-danger"></span>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="Name" class="form-control" type="text" placeholder="" />
+        <label class="control-label">@Localizer["Name"]</label>
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="StartDate" class="form-control" type="datetime-local" placeholder="" id="StartDate" />
+        <label class="control-label">@Localizer["Start Date"]</label>
+        <span asp-validation-for="StartDate" class="text-danger"></span>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="EndDate" class="form-control" type="datetime-local" placeholder="" id="EndDate" />
+        <label class="control-label">@Localizer["End Date"]</label>
+        <span asp-validation-for="EndDate" class="text-danger"></span>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="DiscountPercentage" class="form-control" type="range" min="0" max="100" step="1" oninput="updateOutput(this.value)" value="@Model.DiscountPercentage" />
+        <label class="control-label">@Localizer["Discount Percentage"]</label>
+        <input type="number" id="discountInput" class="form-control" min="0" max="100" step="1" oninput="updateRange(this.value)" value="@Model.DiscountPercentage" />
+        <span asp-validation-for="DiscountPercentage" class="text-danger"></span>
+    </div>
+    <div class="campaign-status-container mb-4">
+        <label class="form-label"><strong>@Localizer["Campaign Status"]</strong></label>
+        <div class="form-check form-switch mb-3">
+            <input asp-for="IsActive" class="form-check-input" type="checkbox" id="campaignStatusSwitch" checked onchange="updateSwitchLabel(this.checked)" />
+            <label class="form-check-label" for="campaignStatusSwitch" id="switchLabel">@Localizer["Active"]</label>
+        </div>
+        <span asp-validation-for="IsActive" class="text-danger"></span>
+    </div>
+
+    <div class="campaign-status-container">
+        <label class="form-label"><strong>@Localizer["Campaign Type"]</strong></label>
+        <div class="form-check form-switch mb-3">
+            <input class="form-check-input" type="checkbox" id="campaignTypeSwitch" onchange="toggleCampaignType(this.checked)">
+            <label class="form-check-label" for="campaignTypeSwitch" id="switchLabel">@Localizer["Select Type"]</label>
+        </div>
+        <span asp-validation-for="IsActive" class="text-danger"></span>
+    </div>
+    <div id="productSection" class="mb-3">
+        <label class="form-label"><strong>@Localizer["Products"]</strong></label>
+        <select name="ProductIds" id="ProductIds" multiple class="form-control">
+            @foreach (var product in Model.ProductList)
+            {
+                <option value="@product.Value" selected="@(Model.ProductIds.Contains(Guid.Parse(product.Value)) ? "selected" : null)">@product.Text</option>
+
+            }
+        </select>
+        <span asp-validation-for="ProductIds" class="text-danger"></span>
+    </div>
+    <div id="categorySection" class="mb-3" style="display: none;">
+        <label class="form-label"><strong>@Localizer["Categories"]</strong></label>
+        <select name="CategoryIds" id="CategoryIds" multiple class="form-control">
+            @foreach (var category in Model.CategoryList)
+            {
+                <option value="@category.Value" selected="@(Model.CategoryIds.Contains(Guid.Parse(category.Value)) ? "selected" : null)">@category.Text</option>
+            }
+        </select>
+        <span asp-validation-for="CategoryIds" class="text-danger"></span>
+    </div>
+    <button class="btn btn-outline-primary" type="submit"><strong>@Localizer["Update"]</strong></button>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        function updateSwitchLabel(isChecked) {
+            const label = document.getElementById('switchLabel');
+            label.textContent = isChecked ? 'Aktif' : 'Pasif';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const checkbox = document.getElementById('campaignTypeSwitch');
+            updateSwitchLabel(checkbox.checked);
+        });
+
+        new MultiSelectTag('ProductIds');
+        new MultiSelectTag('CategoryIds');
+
+        function updateOutput(value) {
+            document.getElementById('discountInput').value = value;
+        }
+
+        function updateRange(value) {
+            document.querySelector('input[type="range"]').value = value;
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById('discountInput').value = document.querySelector('input[type="range"]').value;
+            syncSelectedItems();
+
+            toggleCampaignType(document.getElementById('campaignTypeSwitch').checked);
+        });
+
+        function toggleCampaignType(isChecked) {
+            if (isChecked) {
+                document.getElementById('productSection').style.display = 'none';
+                document.getElementById('categorySection').style.display = 'block';
+            } else {
+                document.getElementById('productSection').style.display = 'block';
+                document.getElementById('categorySection').style.display = 'none';
+            }
+        }
+        $(document).ready(function () {
+            // Orijinal StartDate'yi saklayan gizli alanı al
+            var originalStartDate = new Date($('#OriginalStartDate').val());
+            // Form validasyon kurallarını tanımla
+            $('#campaignUpdateForm').validate({
+                errorClass: 'text-danger',
+                validClass: 'text-success',
+                errorPlacement: function (error, element) {
+                    error.insertAfter(element);
+                },
+                rules: {
+                    Name: {
+                        required: true
+                    },
+                    StartDate: {
+                        required: true,
+                        date: true,
+                        greaterThanOrEqualOriginal: true // Başlangıç tarihi orijinal tarihten büyük veya eşit olmalı
+                    },
+                    EndDate: {
+                        required: true,
+                        date: true,
+                        greaterThan: '#StartDate', // EndDate'in StartDate'den büyük olması gerektiği kuralı
+                        greaterThanNow: true // EndDate'in şu anki tarihten büyük olması gerektiği kuralı
+                    },
+                    DiscountPercentage: {
+                        required: true,
+                        range: [0, 100]
+                    },
+                    ProductIds: {
+                        required: function () {
+                            return !$('#campaignTypeSwitch').is(':checked');
+                        }
+                    },
+                    CategoryIds: {
+                        required: function () {
+                            return $('#campaignTypeSwitch').is(':checked');
+                        }
+                    }
+                },
+                messages: {
+                    Name: "Lütfen bu alanı doldurun.",
+                    StartDate: {
+                        required: "Lütfen bu alanı doldurun.",
+                        greaterThanOrEqualOriginal: "Başlangıç tarihi, oluşturulurkenki tarihten büyük veya eşit olmalıdır."
+                    },
+                    EndDate: {
+                        required: "Lütfen bu alanı doldurun.",
+                        greaterThan: "End date must be greater than start date.",
+                        greaterThanNow: "End date must be later than the current date and time."
+                    },
+                    DiscountPercentage: "Lütfen bu alanı doldurun.",
+                    ProductIds: "Lütfen bu alanı doldurun.",
+                    CategoryIds: "Lütfen bu alanı doldurun."
+                },
+                submitHandler: function (form) {
+                    $.ajax({
+                        type: $(form).attr('method'),
+                        url: $(form).attr('action'),
+                        data: $(form).serialize(),
+                        success: function (response) {
+                            if (response.success) {
+                                window.location.href = response.redirectUrl;
+                            } else {
+                                $.each(response.errors, function (key, value) {
+                                    var errorElement = $('[name="' + key + '"]').next('.text-danger');
+                                    errorElement.text(value);
+                                });
+                            }
+                        }
+                    });
+                    return false; // prevent normal form submission
+                }
+            });
+            // Orijinal StartDate'den büyük veya eşit olmalı kontrolü yapan jQuery Validator kuralı
+            $.validator.addMethod('greaterThanOrEqualOriginal', function (value, element) {
+                var originalStartDate = new Date($('#OriginalStartDate').val());
+                var currentStartDate = new Date(value);
+                return this.optional(element) || currentStartDate >= originalStartDate;
+            }, 'Başlangıç tarihi, oluşturulurkenki tarihten büyük veya eşit olmalıdır.');
+
+            // EndDate'in StartDate'den büyük olması gerektiğini kontrol eden jQuery Validator kuralı
+            $.validator.addMethod('greaterThan', function (value, element, params) {
+                var startDate = new Date($(params).val());
+                var endDate = new Date(value);
+                return this.optional(element) || endDate > startDate;
+            }, 'End date must be greater than start date.');
+
+            // EndDate'in şu anki tarihten büyük olması gerektiğini kontrol eden jQuery Validator kuralı
+            $.validator.addMethod('greaterThanNow', function (value, element) {
+                var now = new Date();
+                var endDate = new Date(value);
+                return this.optional(element) || endDate > now;
+            }, 'End date must be later than the current date and time.');
+
+            // Formun submit edildiğinde validasyonları kontrol et
+            $('#campaignUpdateForm').on('submit', function (event) {
+                var startDate = new Date($('#StartDate').val());
+                var endDate = new Date($('#EndDate').val());
+                var now = new Date();
+
+                // EndDate'in StartDate'den büyük olduğunu kontrol et
+                if (endDate <= startDate) {
+                    var endDateInput = document.getElementById('EndDate');
+                    endDateInput.setCustomValidity('End date must be greater than start date.');
+                    endDateInput.reportValidity();
+                    event.preventDefault(); // prevent form submission
+                    return;
+                }
+
+                // EndDate'in şu anki tarihten büyük olduğunu kontrol et
+                if (endDate <= now) {
+                    var endDateInput = document.getElementById('EndDate');
+                    endDateInput.setCustomValidity('End date must be later than the current date and time.');
+                    endDateInput.reportValidity();
+                    event.preventDefault(); // prevent form submission
+                } else {
+                    document.getElementById('EndDate').setCustomValidity('');
+                }
+            });
+
+            // Tarih alanları değiştiğinde validasyonları sıfırla
+            $('#StartDate, #EndDate').on('change', function () {
+                var endDateInput = document.getElementById('EndDate');
+                endDateInput.setCustomValidity('');
+            });
+        });
+        document.getElementById('campaignModal').addEventListener('hidden.bs.modal', function () {
+            var form = this.querySelector('form');
+            if (form) {
+                form.reset();
+            }
+
+            var productSelect = document.querySelector('#ProductIds');
+            if (productSelect) {
+                productSelect.virtualSelect.clearSelection();
+            }
+
+            var categorySelect = document.querySelector('#CategoryIds');
+            if (categorySelect) {
+                categorySelect.virtualSelect.clearSelection();
+            }
+        });
+    </script>
+</form>
+

@@ -1,0 +1,234 @@
+﻿@model ETicaret.UI.Models.ProductVMs.ProductCardVM
+
+@{
+    Layout = "_Layout";
+    var currentCulture = System.Globalization.CultureInfo.CurrentCulture.Name;
+    var discountPercentage = Model.OriginalPrice.HasValue && Model.OriginalPrice > Model.UnitPrice
+        ? Math.Round(((Model.OriginalPrice.Value - Model.UnitPrice) / Model.OriginalPrice.Value) * 100)
+        : (decimal?)null;
+
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="~/assets/favicon/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="~/assets/css/libs.bundle.css">
+    <link rel="stylesheet" href="~/assets/css/theme.bundle.css">
+    <title>@Model.Name</title>
+    <style>
+        .size-pill.active {
+            background-color: #007bff; /* Seçili düğme arka plan rengi */
+            color: white; /* Seçili düğme metin rengi */
+            border-color: #007bff; /* Seçili düğme kenar rengi */
+        }
+    </style>
+</head>
+<body>
+    <!-- Product -->
+    <section style="padding-top: 50px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-6">
+
+                    <!-- Card -->
+                    <div class="card">
+
+                        @if (discountPercentage.HasValue)
+                        {
+                            <div class="badge bg-white text-body card-badge card-badge-start text-uppercase discount-badge-larger">
+                                @discountPercentage%
+                            </div>
+                        }
+
+
+                        <!-- Slider -->
+                        <div class="mb-4" id="productSlider" style="max-width: 500px; max-height: 500px;">
+                            <img id="productImage" src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Image)" alt="@Model.Name" class="card-img-top" style="width: 100%; height: 100%; object-fit: contain;">
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-12 col-md-6 ps-lg-10 mx-auto my-5">
+
+                    <!-- Heading -->
+                    <h3 class="mb-2">@Model.Name</h3>
+
+                    <!-- Price -->
+                    <div class="mb-7">
+                        @if (Model.OriginalPrice.HasValue && Model.OriginalPrice > Model.UnitPrice)
+                        {
+                            <span class="fs-5 text-muted" style="text-decoration: line-through;">₺ @Model.OriginalPrice.Value.ToString("F2")</span>
+                            <span class="ms-1 fs-5 fw-bolder text-primary">₺ @Model.UnitPrice.ToString("F2")</span>
+                        }
+                        else
+                        {
+                            <span class="ms-1 fs-5 fw-bolder text-primary">₺ @Model.UnitPrice.ToString("F2")</span>
+                        }
+                        <span class="fs-sm ms-1">(In Stock)</span>
+
+                    </div>
+
+                    <!-- Form -->
+                    <form id="productForm">
+                        <div class="form-group">
+                            <!-- Size Label -->
+                            <p>Size: <strong><span id="modalProductSizeCaption">Not Selected</span></strong></p>
+
+                            <div class="mb-2">
+                                @foreach (var size in Model.Sizes)
+                                {
+                                    <button type="button" class="btn btn-outline-secondary size-pill" data-id="@size.Id" data-name="@size.SizeName">
+                                        @size.SizeName
+                                    </button>
+                                }
+                            </div>
+
+                            <div class="row gx-5 mb-7">
+                                <div class="col-12 col-lg-auto">
+                                    <!-- Quantity -->
+                                    <select class="form-select mb-2">
+                                        <option value="1" selected>1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-lg">
+                                    <!-- Submit -->
+                                    <button type="submit" class="btn w-100 btn-dark mb-2">
+                                        Add to Cart <i class="fe fe-shopping-cart ms-2"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DESCRIPTION -->
+    <section class="pt-11 mt-15">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <!-- Nav -->
+                    <div class="nav nav-tabs nav-overflow justify-content-start justify-content-md-center border-bottom">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#descriptionTab">
+                            Description
+                        </a>
+                        <a class="nav-link" id="sizeQueryTab">
+                            Bedenimi Sorgula
+                        </a>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="descriptionTab">
+                            <div class="row justify-content-center py-9">
+                                <div class="col-12 col-lg-10 col-xl-8">
+                                    <div class="row">
+                                        <div class="col-12">
+
+                                            <!-- Text -->
+                                            <p class="text-gray-500">
+                                                @Model.Description
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="~/assets/js/vendor.bundle.js"></script>
+    <script src="~/assets/js/theme.bundle.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('productForm');
+            const sizePills = form.querySelectorAll('.size-pill');
+            const productImage = document.getElementById('productImage');
+            const imageSrc = productImage.src.split(',')[1]; // Base64 string part only
+
+            // Size düğmelerinde tıklama olayını ele al
+            sizePills.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    // Tüm düğmelerden aktif sınıfını kaldır
+                    sizePills.forEach(function (btn) {
+                        btn.classList.remove('active');
+                    });
+
+                    // Seçilen düğmeye aktif sınıfını ekle
+                    this.classList.add('active');
+                    document.querySelector('#modalProductSizeCaption').textContent = this.getAttribute('data-name') + ' US';
+                });
+            });
+
+            form.addEventListener('submit', function (event) {
+                event.preventDefault(); // Formun varsayılan submit işlemini engelle
+
+                // Ürün bilgilerini al
+                const productName = document.querySelector('h3').textContent;
+                const unitPrice = document.querySelector('.text-primary').textContent;
+                const quantity = form.querySelector('select').value;
+                const sizePill = form.querySelector('.size-pill.active');
+                const sizeName = sizePill ? sizePill.getAttribute('data-name') : 'Not selected';
+                const sizeId = sizePill ? sizePill.getAttribute('data-id') : null;
+
+                if (!sizeId) {
+                    alert('Please select a size.');
+                    return;
+                }
+
+                // Yeni ürün nesnesini oluştur
+                const productData = {
+                    ProductName: productName,
+                    UnitPrice: unitPrice,
+                    Quantity: quantity,
+                    SizeName: sizeName,
+                    SizeId: sizeId,
+                    ImageSrc: imageSrc // Base64 string
+                };
+
+                // sessionStorage'dan mevcut cartItems'ı al
+                let cartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
+
+                // Yeni ürünü cartItems dizisine ekle
+                cartItems.push(productData);
+
+                // Güncellenmiş cartItems dizisini sessionStorage'a kaydet
+                sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+                // Ürün başarıyla sepete eklendi bildirimi
+                alert('Product successfully added to the cart!');
+            });
+        });
+
+        document.getElementById('sizeQueryTab').addEventListener('click', function () {
+            window.location.href = '@Url.Action("Privacy", "Home")';
+        });
+    </script>
+
+</body>
+</html>
+
+<style>
+    .discount-badge-larger {
+        font-size: 14px;
+        padding: 5px 10px;
+        border-radius: 3px;
+        transform: scale(1.1);
+    }
+</style>
+

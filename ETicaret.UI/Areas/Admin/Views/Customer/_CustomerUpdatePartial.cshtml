@@ -1,0 +1,99 @@
+﻿@using ETicaret.Domain.Enums
+@model ETicaret.UI.Areas.Admin.Models.CustomerVMs.CustomerUpdateVM
+
+@* <div class="row">
+    <div class="col-md-8">
+        <form asp-action="Update" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mb-3">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control w-100" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control w-100" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control w-100" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="DateOfBirth" class="control-label"></label>
+                <input asp-for="DateOfBirth" class="form-control w-100" type="date" />
+                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control w-100" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label for="floatingInputName">@Localizer["Gender"]</label>
+                <select asp-for="Gender" class="form-control w-100">
+                    <option value="@((int)Gender.Man)">@Localizer["Male"]</option>
+                    <option value="@((int)Gender.Woman)">@Localizer["Female"]</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} *@
+
+<form asp-action="Update" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-floating mb-3">
+        <input asp-for="FirstName" class="form-control" id="floatingInputFirstName" type="text" placeholder="Ali">
+        <label for="floatingInputFirstName">@Localizer["First Name"]</label>
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input asp-for="LastName" class="form-control" id="floatingInputLastName" type="text" placeholder="Toplu">
+        <label for="floatingInputLastName">@Localizer["Last Name"]</label>
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input asp-for="Email" class="form-control" id="floatingInputEmail" type="email" placeholder="example@bilgeadam.com">
+        <label for="floatingInputEmail">@Localizer["Email"]</label>
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input asp-for="DateOfBirth" class="form-control" id="floatingInputDateOfBirth" type="date" placeholder="01/01/2000">
+        <label for="floatingInputDateOfBirth">@Localizer["Date of Birth"]</label>
+        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input asp-for="PhoneNumber" class="form-control" id="floatingInputPhoneNumber" type="text" placeholder="1234567890">
+        <label for="floatingInputPhoneNumber">@Localizer["Phone Number"]</label>
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <div class="form-floating mb-3">
+        <select asp-for="Gender" class="form-control" id="floatingInputGender">
+            <option value="" disabled selected>@Localizer["Select Gender"]</option>
+            <option value="@((int)Gender.Man)">@Localizer["Male"]</option>
+            <option value="@((int)Gender.Woman)">@Localizer["Female"]</option>
+        </select>
+        <label for="floatingInputGender">@Localizer["Gender"]</label>
+        <span asp-validation-for="Gender" class="text-danger"></span>
+    </div>
+
+    <button class="btn btn-outline-primary" type="submit">@Localizer["Save"]</button>
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+</form>

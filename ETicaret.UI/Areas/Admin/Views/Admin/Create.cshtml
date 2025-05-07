@@ -1,0 +1,49 @@
+﻿@model ETicaret.UI.Areas.Admin.Models.AdminVMs.AdminCreateVM
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="col-lg-6 mb-5">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-heading">@Localizer["Admin Create"]</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create" enctype="multipart/form-data">
+
+                    <div class="form-floating mb-3">
+                        <label asp-for="NewImage" class="control-label"></label>
+                        <input type="file" asp-for="NewImage" class="form-control" />
+                        <span asp-validation-for="NewImage" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="FirstName" class="form-control" id="floatingInputFirstName" type="text" placeholder="Ali">
+                        <label for="floatingInputFirstName">@Localizer["First Name"]</label>
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="LastName" class="form-control" id="floatingInputLastName" type="text" placeholder="Toplu">
+                        <label for="floatingInputLastName">@Localizer["Last Name"]</label>
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Email" class="form-control" id="floatingInputEmail" type="email" placeholder="example@bilgeadam.com">
+                        <label for="floatingInputEmail">@Localizer["Email"]</label>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <button class="btn btn-outline-primary" type="submit">@Localizer["Submit"]</button>
+                </form>
+            </div>
+            <div class="card-footer">
+                <a class="btn btn-outline-secondary" asp-action="Index">@Localizer["Back to List"]</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

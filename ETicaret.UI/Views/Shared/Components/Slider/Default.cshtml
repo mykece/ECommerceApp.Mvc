@@ -1,0 +1,104 @@
+﻿@using System.Security.Claims
+@model IEnumerable<ETicaret.UI.Areas.Admin.Models.CampaignVMs.CampaignListVM>
+
+@* <section>
+    <div data-flickity='{"prevNextButtons": true, "fade": true}'>
+        @foreach (var item in Model)
+        {
+            if(item.Image is null)
+            {
+                <div class="w-100 bg-cover" style="background-image: url('https://www.peple.com.tr/wp-content/uploads/2021/12/cekilis-kampanyasi-993_520.png');">
+                    <div class="container d-flex flex-column">
+                        <div class="row align-items-center py-12" style="min-height: 550px;">
+                            <div class="col-12 col-md-6 col-lg-5 col-xl-4 offset-md-1">
+                                <h1>@item.Name</h1>
+                                <h2 class="display-1 text-primary">@item.DiscountPercentage İndirim!</h2>
+                                <a class="btn btn-dark" href="shop.html">
+                                    Shop Now <i class="fe fe-arrow-right ms-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+            else
+            {
+                <div class="w-100 bg-cover" style="background-image: url(@($"data:image/png;base64,{Convert.ToBase64String(item.Image)}"));">
+                    <div class="container d-flex flex-column">
+                        <div class="row align-items-center py-12" style="min-height: 550px;">
+                            <div class="col-12 col-md-6 col-lg-5 col-xl-4 offset-md-1">
+                                <h1>@item.Name</h1>
+                                <h2 class="display-1 text-primary">%@item.DiscountPercentage İndirim!</h2>
+                                <a class="btn btn-dark" asp-controller="Home" asp-action="Index">
+                                    Shop Now <i class="fe fe-arrow-right ms-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        }
+    </div>
+</section> *@
+
+
+
+
+<section>
+    <div data-flickity='{"prevNextButtons": true, "fade": true}'>
+        @foreach (var item in Model)
+        {
+            if (item.Image is null)
+            {
+                <div class="campaign-banner" style="background-image: url('/admin/img/photos/kampanya.jpeg');">
+
+                    <div class="container d-flex flex-column">
+                        <div class="row align-items-center py-12" style="min-height: 550px;">
+                            <div class="col-12 col-md-6 col-lg-5 col-xl-4 offset-md-1">
+                                <h1>@item.Name</h1>
+                                <h2 class="display-1 text-primary">@item.DiscountPercentage İndirim!</h2>
+                                <a class="btn btn-dark" href="shop.html">
+                                    Shop Now <i class="fe fe-arrow-right ms-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+            else
+            {
+                <div class="campaign-banner" style="background-image: url(@($"data:image/png;base64,{Convert.ToBase64String(item.Image)}"));">
+                    <div class="container d-flex flex-column">
+                        <div class="row align-items-center py-12" style="min-height: 550px;">
+                            <div class="col-12 col-md-6 col-lg-5 col-xl-4 offset-md-1">
+                                <h1>@item.Name</h1>
+                                <h2 class="display-1 text-primary">%@item.DiscountPercentage İndirim!</h2>
+                                <a class="btn btn-dark" asp-controller="Home" asp-action="ActiveCampaignProducts" asp-route-campaignId="@item.Id">
+                                    Shop Now <i class="fe fe-arrow-right ms-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        }
+    </div>
+</section>
+
+<style>
+    .campaign-banner {
+        width: 100%;
+        height: 650px;
+        background-size: cover;
+        background-position: center;
+    }
+
+        .campaign-banner img {
+            object-fit: cover;
+        }
+</style>
+

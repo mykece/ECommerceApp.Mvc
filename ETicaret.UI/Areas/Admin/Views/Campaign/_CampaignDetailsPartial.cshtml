@@ -1,0 +1,52 @@
+﻿@model ETicaret.UI.Areas.Admin.Models.CampaignVMs.CampaignDetailVM
+
+<div class="modal-body">
+    <div class="row mb-4">
+        @* <div class="col-md-3 fw-semibold">@Localizer["Name"]</div>
+        <div class="col-md-9">@Model.Name</div> *@
+        <div class="col-12 text-center fw-bold">
+            <span>@Model.Name</span>
+    </div>
+        <div style="height: 20px;"></div>
+    <div class="row mb-4">
+        <div class="col-md-3 fw-semibold">@Localizer["Start Date"]</div>
+        <div class="col-md-9">@Model.StartDate.ToString("yyyy-MM-dd")</div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-3 fw-semibold">@Localizer["End Date"]</div>
+        <div class="col-md-9">@Model.EndDate.ToString("yyyy-MM-dd")</div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-3 fw-semibold">@Localizer["Discount Percentage"]</div>
+        <div class="col-md-9">@Model.DiscountPercentage %</div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-3 fw-semibold">@Localizer["Campaign Status"]</div>
+        <div class="col-md-9">@Model.CampaignStatus</div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-3 fw-semibold">@Localizer["Is Active"]</div>
+        <div class="col-md-9">@Model.IsActive</div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-3 fw-semibold">@Localizer["Products"]</div>
+        <div class="col-md-9">
+            @if (Model.ProductNames != null && Model.ProductNames.Any())
+            {
+                <ul class="list-unstyled">
+                    @foreach (var productName in Model.ProductNames)
+                    {
+                        <li><i class="fa-regular fa-circle-check me-2"></i>@productName</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <span>@Localizer["No products available"]</span>
+            }
+        </div>
+    </div>
+ 
+</div>
+
+

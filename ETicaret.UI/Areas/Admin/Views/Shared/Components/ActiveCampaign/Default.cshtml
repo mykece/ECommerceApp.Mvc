@@ -1,0 +1,43 @@
+﻿@model IEnumerable<ETicaret.UI.Areas.Admin.Models.CampaignVMs.CampaignListVM>
+
+<div class="card mb-5">
+    <div class="card-header bg-inverse">
+        <h5 class="card-heading">@Localizer["Active Campaigns"]</h5>
+    </div>
+    <div class="card-body">
+        @if (Model == null || !Model.Any())
+        {
+            <p>No active campaigns found.</p>
+        }
+        else
+        {
+            <canvas id="activeCampaignsChart" width="400" height="200"></canvas>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                var ctx = document.getElementById('activeCampaignsChart').getContext('2d');
+                var activeCampaignsChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: @Html.Raw(Json.Serialize(Model.Select(c => c.Name + " (" + c.StartDate.ToShortDateString() + " - " + c.EndDate.ToShortDateString() + ")"))),
+                        datasets: [{
+                            label: 'Discount Percentage (%)',
+                            data: @Html.Raw(Json.Serialize(Model.Select(c => c.DiscountPercentage))),
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max:100
+                                
+                            }
+                        }
+                    }
+                });
+            </script>
+        }
+    </div>
+</div>

@@ -1,0 +1,88 @@
+﻿@using ETicaret.Domain.Enums
+
+@model List<ETicaret.UI.Areas.Admin.Models.ProductVMs.ProductListVM>
+
+@{
+    Layout = "_Layout";
+    const decimal conversionRate = 0.036m; // Örneğin, 1 TL = 0.036 USD
+    var currentCulture = System.Globalization.CultureInfo.CurrentCulture.Name;
+}
+
+<section class="py-12">
+    <div class="container">
+        <div class="row">
+            @foreach (var product in Model)
+            {
+                var unitPriceInUsd = product.UnitPrice * conversionRate;
+
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="card" style="width: 18rem;">
+                        <!-- Badge -->
+                        @if (product.OriginalPrice.HasValue && product.OriginalPrice > product.UnitPrice)
+                        {
+                            var discountPercentage = Math.Round(((product.OriginalPrice.Value - product.UnitPrice) / product.OriginalPrice.Value) * 100);
+                            <div class="badge bg-white text-body card-badge card-badge-start text-uppercase discount-badge-larger">
+                                @discountPercentage%
+                            </div>
+                        }
+
+                        <!-- Image -->
+                        @if (product.Image == null)
+                        {
+                            <img src="~/assets/img/products/default-product.jpg" alt="Product Image" class="card-img-top" style="height: 300px; object-fit: cover;" title="@product.Description" data-bs-toggle="tooltip" data-bs-placement="top">
+                        }
+                        else
+                        {
+                            <img class="card-img-top" src="@($"data:image/png;base64,{Convert.ToBase64String(product.Image)}")" alt="Product Image" style="height: 300px; object-fit: cover;" title="@product.Description" data-bs-toggle="tooltip" data-bs-placement="top">
+                        }
+                        <!-- Body -->
+                        <div class="card-body text-center">
+                            <!-- Product Name -->
+                            <h5 class="card-title">@product.Name</h5>
+
+                            <!-- Product Price -->
+                            @if (product.OriginalPrice.HasValue && product.OriginalPrice > product.UnitPrice)
+                            {
+                                <p class="card-text">
+                                    <span class="text-muted" style="text-decoration: line-through; margin-right: 10px;">₺@product.OriginalPrice.Value.ToString("F2")</span>
+                                    <span class="text-danger">₺@product.UnitPrice.ToString("F2")</span>
+                                </p>
+                            }
+                            else
+                            {
+                                <p class="card-text">₺@product.UnitPrice.ToString("F2")</p>
+                            }
+
+
+                            <!-- Product Gender -->
+                            <p class="card-text">@product.Gender</p>
+
+                            <!-- Actions -->
+                            <a href="@Url.Action("Product", "Home", new { id = product.Id })" class="btn btn-primary">@Localizer["Sepete Ekle"]</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
+}
+
+
+<style>
+    .discount-badge-larger {
+        font-size: 14px;
+        padding: 5px 10px;
+        border-radius: 3px;
+        transform: scale(1.1);
+    }
+</style>
+

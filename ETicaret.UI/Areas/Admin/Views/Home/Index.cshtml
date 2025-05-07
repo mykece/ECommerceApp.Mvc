@@ -1,0 +1,692 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer<ModelResource> Localizer
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+
+<div class="page-holder bg-gray-100">
+    <div class="container-fluid px-lg-4 px-xl-5">
+        <!-- Page Header-->
+        <div class="page-header">
+            <h1 class="page-heading">E-commerce @Localizer["Dashboards"]</h1>
+        </div>
+
+        @await Component.InvokeAsync("Product")
+        @await Component.InvokeAsync("ActiveCampaign")
+      @*   <section class="mb-3 mb-lg-5">
+            <div class="card mb-5">
+                <div class="card-body">
+                    <div class="row g-5">
+                        <!-- Widget Type 2-->
+                        <div class="col-md-6 col-xl-3">
+                            <h6 class="subtitle fw-normal text-muted">Earnings</h6>
+                            <h5 class="m-b-25">$10,500<span class="ms-3 float-end text-red">+20.3%</span></h5>
+                            <div class="progress">
+                                <div class="progress-bar bg-red" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width:85%">           </div>
+                            </div>
+                        </div>
+                        <!-- /Widget Type 2-->
+                        <!-- Widget Type 2-->
+                        <div class="col-md-6 col-xl-3">
+                            <h6 class="subtitle fw-normal text-muted">Readers</h6>
+                            <h5 class="m-b-25">584<span class="ms-3 float-end text-blue">+3.3%</span></h5>
+                            <div class="progress">
+                                <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width:75%">           </div>
+                            </div>
+                        </div>
+                        <!-- /Widget Type 2-->
+                        <!-- Widget Type 2-->
+                        <div class="col-md-6 col-xl-3">
+                            <h6 class="subtitle fw-normal text-muted">Bookmarks</h6>
+                            <h5 class="m-b-25">876<span class="ms-3 float-end text-primary">+10.5%</span></h5>
+                            <div class="progress">
+                                <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100" style="width:67%">           </div>
+                            </div>
+                        </div>
+                        <!-- /Widget Type 2-->
+                        <!-- Widget Type 2-->
+                        <div class="col-md-6 col-xl-3">
+                            <h6 class="subtitle fw-normal text-muted">Visitors</h6>
+                            <h5 class="m-b-25">3,500<span class="ms-3 float-end text-green">-5.8%</span></h5>
+                            <div class="progress">
+                                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="93" aria-valuemin="0" aria-valuemax="100" style="width:93%">           </div>
+                            </div>
+                        </div>
+                        <!-- /Widget Type 2-->
+                    </div>
+                </div>
+            </div>
+            <!-- <Sales>-->
+            <div class="card mb-5">
+                <div class="card-header bg-inverse">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h5 class="card-heading">Sales by channel</h5>
+                        </div>
+                        <div class="col-auto">
+                            <div class="btn-group"><a class="btn btn-sm btn-outline-light active" href="#!" aria-current="page">This week</a><a class="btn btn-sm btn-outline-light" href="#!">Last week</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row align-items-center mb-5">
+                        <div class="col">
+                            <h3 class="subtitle text-gray-500">Total Revenue</h3>
+                            <div class="h1 text-primary">$19,200</div>
+                            <p class="mb-0"><span class="text-muted me-3">+$2,032 </span><span class="badge badge-success-light"><i class="fas fa-arrow-up me-2"></i>19.5%</span></p>
+                        </div>
+                        <div class="col-auto">
+                            <div class="icon icon-xl ms-2 bg-primary-light">
+                                <svg class="svg-icon text-primary">
+                                    <use xlink:href="icons/orion-svg-sprite.71e9f5f2.svg#pay-1"> </use>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-9 col-xl-10">
+                            <canvas id="barChart"></canvas>
+                            <ul class="mt-4 text-gray-500 list-inline card-text text-center">
+                                <li class="list-inline-item"> <span class="indicator bg-primary"></span>Organic Search </li>
+                                <li class="list-inline-item"><span class="indicator" style="background: #d0d2f3"> </span>Facebook Ads </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3 col-xl-2 text-end border-start d-flex flex-column justify-content-between py-lg-3 py-xxl-5">
+                            <div>
+                                <h3 class="subtitle text-gray-500 fw-normal">Organic Search Revenue</h3>
+                                <div class="h4 fw-normal h1 text-dark">$19,200</div>
+                                <p class="mb-0"><span class="text-muted me-2">+$2,123 </span><span class="badge badge-success-light"><i class="fas fa-arrow-up me-2"></i>21.3%</span></p>
+                            </div>
+                            <hr class="bg-gray-500">
+                            <div>
+                                <h3 class="subtitle text-gray-500 fw-normal">Facebook Ads Revenue</h3>
+                                <div class="h4 fw-normal h1 text-dark">$19,200</div>
+                                <p class="mb-0"><span class="text-muted me-2">-$233 </span><span class="badge badge-danger-light"><i class="fas fa-arrow-down me-2"></i>-2.1%                   </span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- </Sales>-->
+            <div class="row">
+                <!-- <Latest activity>-->
+                <div class="col-lg-4">
+                    <div class="card-adjust-height-lg">
+                        <div class="card mb-4 mb-lg-0">
+                            <div class="card-header">
+                                <h5 class="card-heading">Latest activity</h5>
+                                <div class="card-header-more">
+                                    <button class="btn-header-more" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></button>
+                                    <div class="dropdown-menu dropdown-menu-end text-sm"><a class="dropdown-item" href="#!"><i class="fas fa-expand-arrows-alt opacity-5 me-2"></i>Expand</a><a class="dropdown-item" href="#!"><i class="far fa-window-minimize opacity-5 me-2"></i>Minimize</a><a class="dropdown-item" href="#!"><i class="fas fa-redo opacity-5 me-2"></i> Reload</a><a class="dropdown-item" href="#!"><i class="far fa-trash-alt opacity-5 me-2"></i> Remove        </a></div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="list-group list-group-flush list-group-timeline">
+                                    <div class="list-group-item px-0">
+                                        <div class="row">
+                                            <div class="col-auto"><img class="avatar p-1 me-2" src="https://d19m59y37dris4.cloudfront.net/bubbly/1-3-2/img/avatar-0.jpg" alt="Nielsen Cobb"></div>
+                                            <div class="col ms-n3 pt-2 text-sm text-gray-800">
+                                                <strong class="text-dark">Nielsen Cobb </strong> subscribed to your newsletter.
+                                                <div class="text-gray-500 small">3m ago</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.list-group-item-->
+                                    <div class="list-group-item px-0">
+                                        <div class="row">
+                                            <div class="col-auto"><img class="avatar p-1 me-2" src="https://d19m59y37dris4.cloudfront.net/bubbly/1-3-2/img/avatar-1.jpg" alt="Margret Cote"></div>
+                                            <div class="col ms-n3 pt-2 text-sm text-gray-800">
+                                                <strong class="text-dark">Margret Cote </strong> liked your post 🎉
+                                                <div class="text-gray-500 small">4m ago</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.list-group-item-->
+                                    <div class="list-group-item px-0">
+                                        <div class="row">
+                                            <div class="col-auto"><img class="avatar p-1 me-2" src="https://d19m59y37dris4.cloudfront.net/bubbly/1-3-2/img/avatar-2.jpg" alt="Rachel Vinson"></div>
+                                            <div class="col ms-n3 pt-2 text-sm text-gray-800">
+                                                <strong class="text-dark">Rachel Vinson </strong> placed an order.
+                                                <div class="text-gray-500 small">5m ago</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.list-group-item-->
+                                    <div class="list-group-item px-0">
+                                        <div class="row">
+                                            <div class="col-auto"><img class="avatar p-1 me-2" src="https://d19m59y37dris4.cloudfront.net/bubbly/1-3-2/img/avatar-3.jpg" alt="Gabrielle Aguirre"></div>
+                                            <div class="col ms-n3 pt-2 text-sm text-gray-800">
+                                                <strong class="text-dark">Gabrielle Aguirre </strong>commented on &quot;How to season your new grill.&quot;
+                                                <div class="text-gray-500 small">6m ago</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.list-group-item-->
+                                    <div class="list-group-item px-0">
+                                        <div class="row">
+                                            <div class="col-auto"><img class="avatar p-1 me-2" src="https://d19m59y37dris4.cloudfront.net/bubbly/1-3-2/img/avatar-4.jpg" alt="Spears Collier"></div>
+                                            <div class="col ms-n3 pt-2 text-sm text-gray-800">
+                                                <strong class="text-dark">Spears Collier </strong> subscribed to your newsletter.
+                                                <div class="text-gray-500 small">7m ago</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.list-group-item-->
+                                    <div class="list-group-item px-0">
+                                        <div class="row">
+                                            <div class="col-auto"><img class="avatar p-1 me-2" src="https://d19m59y37dris4.cloudfront.net/bubbly/1-3-2/img/avatar-5.jpg" alt="Keisha Thomas"></div>
+                                            <div class="col ms-n3 pt-2 text-sm text-gray-800">
+                                                <strong class="text-dark">Keisha Thomas </strong> liked your post 🎉
+                                                <div class="text-gray-500 small">8m ago</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.list-group-item-->
+                                    <div class="list-group-item px-0">
+                                        <div class="row">
+                                            <div class="col-auto"><img class="avatar p-1 me-2" src="https://d19m59y37dris4.cloudfront.net/bubbly/1-3-2/img/avatar-6.jpg" alt="Elisabeth Key"></div>
+                                            <div class="col ms-n3 pt-2 text-sm text-gray-800">
+                                                <strong class="text-dark">Elisabeth Key </strong> placed an order.
+                                                <div class="text-gray-500 small">9m ago</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.list-group-item-->
+                                    <div class="list-group-item px-0">
+                                        <div class="row">
+                                            <div class="col-auto"><img class="avatar p-1 me-2" src="https://d19m59y37dris4.cloudfront.net/bubbly/1-3-2/img/avatar-7.jpg" alt="Patel Mack"></div>
+                                            <div class="col ms-n3 pt-2 text-sm text-gray-800">
+                                                <strong class="text-dark">Patel Mack </strong>commented on &quot;How to season your new grill.&quot;
+                                                <div class="text-gray-500 small">10m ago</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.list-group-item-->
+                                    <div class="list-group-item px-0">
+                                        <div class="row">
+                                            <div class="col-auto"><img class="avatar p-1 me-2" src="https://d19m59y37dris4.cloudfront.net/bubbly/1-3-2/img/avatar-8.jpg" alt="Erika Whitaker"></div>
+                                            <div class="col ms-n3 pt-2 text-sm text-gray-800">
+                                                <strong class="text-dark">Erika Whitaker </strong> subscribed to your newsletter.
+                                                <div class="text-gray-500 small">11m ago</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.list-group-item-->
+                                    <div class="list-group-item px-0">
+                                        <div class="row">
+                                            <div class="col-auto"><img class="avatar p-1 me-2" src="https://d19m59y37dris4.cloudfront.net/bubbly/1-3-2/img/avatar-9.jpg" alt="Meyers Swanson"></div>
+                                            <div class="col ms-n3 pt-2 text-sm text-gray-800">
+                                                <strong class="text-dark">Meyers Swanson </strong> liked your post 🎉
+                                                <div class="text-gray-500 small">12m ago</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.list-group-item-->
+                                    <div class="list-group-item px-0">
+                                        <div class="row">
+                                            <div class="col-auto"><img class="avatar p-1 me-2" src="https://d19m59y37dris4.cloudfront.net/bubbly/1-3-2/img/avatar-10.jpg" alt="Townsend Sloan"></div>
+                                            <div class="col ms-n3 pt-2 text-sm text-gray-800">
+                                                <strong class="text-dark">Townsend Sloan </strong> placed an order.
+                                                <div class="text-gray-500 small">13m ago</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.list-group-item-->
+                                    <div class="list-group-item px-0">
+                                        <div class="row">
+                                            <div class="col-auto"><img class="avatar p-1 me-2" src="https://d19m59y37dris4.cloudfront.net/bubbly/1-3-2/img/avatar-11.jpg" alt="Millicent Henry"></div>
+                                            <div class="col ms-n3 pt-2 text-sm text-gray-800">
+                                                <strong class="text-dark">Millicent Henry </strong>commented on &quot;How to season your new grill.&quot;
+                                                <div class="text-gray-500 small">14m ago</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.list-group-item-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- </Latest activity>-->
+                <!-- <Products>-->
+                <div class="col-lg-8">
+                    <div class="card card-table mb-4">
+                        <div class="card-header">
+                            <h5 class="card-heading">Bestsellers this month</h5>
+                            <div class="card-header-more">
+                                <button class="btn-header-more" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></button>
+                                <div class="dropdown-menu dropdown-menu-end text-sm"><a class="dropdown-item" href="#!"><i class="fas fa-expand-arrows-alt opacity-5 me-2"></i>Expand</a><a class="dropdown-item" href="#!"><i class="far fa-window-minimize opacity-5 me-2"></i>Minimize</a><a class="dropdown-item" href="#!"><i class="fas fa-redo opacity-5 me-2"></i> Reload</a><a class="dropdown-item" href="#!"><i class="far fa-trash-alt opacity-5 me-2"></i> Remove        </a></div>
+                            </div>
+                        </div>
+                        <div class="preload-wrapper">
+                            <table class="table table-hover table-striped table-borderless text-sm align-middle mb-0" id="productsDatatable">
+                                <thead>
+                                    <tr>
+                                        <th style="min-width: 300px;">Name</th>
+                                        <th>Price</th>
+                                        <th>Last Ordered</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="align-middle">
+                                        <td class="d-flex align-items-center"><img class="card-table-img img-fluid rounded me-3" src="https://d19m59y37dris4.cloudfront.net/bubbly/1-3-2/img/product/product-1.jpg" alt="" width="30"><a class="text-reset text-decoration-none" href="#!"><strong>Round grey hanging decor</strong></a></td>
+                                        <td>$22.00</td>
+                                        <td class="text-muted">2021/10/30</td>
+                                        <td>
+                                            <label class="badge badge-primary-light">New Arrival</label>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <td class="d-flex align-items-center"><img class="card-table-img img-fluid rounded me-3" src="https://d19m59y37dris4.cloudfront.net/bubbly/1-3-2/img/product/product-2.jpg" alt="" width="30"><a class="text-reset text-decoration-none" href="#!"><strong>silver black round Ipod</strong></a></td>
+                                        <td>$22.00</td>
+                                        <td class="text-muted">2021/09/01</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <td class="d-flex align-items-center"><img class="card-table-img img-fluid rounded me-3" src="https://d19m59y37dris4.cloudfront.net/bubbly/1-3-2/img/product/product-3.jpg" alt="" width="30"><a class="text-reset text-decoration-none" href="#!"><strong>White USB cable</strong></a></td>
+                                        <td>$22.00</td>
+                                        <td class="text-muted">2021/04/16</td>
+                                        <td>
+                                            <label class="badge badge-info-light">Trending</label>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <td class="d-flex align-items-center"><img class="card-table-img img-fluid rounded me-3" src="https://d19m59y37dris4.cloudfront.net/bubbly/1-3-2/img/product/product-4.jpg" alt="" width="30"><a class="text-reset text-decoration-none" href="#!"><strong>Sony PS 4 game controller</strong></a></td>
+                                        <td>$22.00</td>
+                                        <td class="text-muted">2021/01/22</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <td class="d-flex align-items-center"><img class="card-table-img img-fluid rounded me-3" src="https://d19m59y37dris4.cloudfront.net/bubbly/1-3-2/img/product/product-5.jpg" alt="" width="30"><a class="text-reset text-decoration-none" href="#!"><strong>Kui Ye Chen’s AirPods</strong></a></td>
+                                        <td>$22.00</td>
+                                        <td class="text-muted">2021/07/10</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <td class="d-flex align-items-center"><img class="card-table-img img-fluid rounded me-3" src="https://d19m59y37dris4.cloudfront.net/bubbly/1-3-2/img/product/product-6.jpg" alt="" width="30"><a class="text-reset text-decoration-none" href="#!"><strong>Black camera lens</strong></a></td>
+                                        <td>$22.00</td>
+                                        <td class="text-muted">2021/05/09</td>
+                                        <td>
+                                            <label class="badge badge-success-light">Hot</label>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <td class="d-flex align-items-center"><img class="card-table-img img-fluid rounded me-3" src="https://d19m59y37dris4.cloudfront.net/bubbly/1-3-2/img/product/product-7.jpg" alt="" width="30"><a class="text-reset text-decoration-none" href="#!"><strong>Apple wireless keyboard</strong></a></td>
+                                        <td>$22.00</td>
+                                        <td class="text-muted">2021/10/06</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <td class="d-flex align-items-center"><img class="card-table-img img-fluid rounded me-3" src="https://d19m59y37dris4.cloudfront.net/bubbly/1-3-2/img/product/product-8.jpg" alt="" width="30"><a class="text-reset text-decoration-none" href="#!"><strong>Black Canon EOS camera</strong></a></td>
+                                        <td>$22.00</td>
+                                        <td class="text-muted">2021/08/30</td>
+                                        <td>
+                                            <label class="badge badge-danger-light">Soldout</label>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <td class="d-flex align-items-center"><img class="card-table-img img-fluid rounded me-3" src="https://d19m59y37dris4.cloudfront.net/bubbly/1-3-2/img/product/product-9.jpg" alt="" width="30"><a class="text-reset text-decoration-none" href="#!"><strong>Silver round analog watch</strong></a></td>
+                                        <td>$22.00</td>
+                                        <td class="text-muted">2021/10/08</td>
+                                        <td>
+                                            <label class="badge badge-primary-light">New Arrival</label>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <td class="d-flex align-items-center"><img class="card-table-img img-fluid rounded me-3" src="https://d19m59y37dris4.cloudfront.net/bubbly/1-3-2/img/product/product-10.jpg" alt="" width="30"><a class="text-reset text-decoration-none" href="#!"><strong>Apple Watch</strong></a></td>
+                                        <td>$22.00</td>
+                                        <td class="text-muted">2021/08/27</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- </Products>-->
+            </div>
+            <!-- <Orders>-->
+            <div class="card card-table mb-4">
+                <div class="card-header">
+                    <h5 class="card-heading">Latest orders</h5>
+                    <div class="card-header-more">
+                        <button class="btn-header-more" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></button>
+                        <div class="dropdown-menu dropdown-menu-end text-sm"><a class="dropdown-item" href="#!"><i class="fas fa-expand-arrows-alt opacity-5 me-2"></i>Expand</a><a class="dropdown-item" href="#!"><i class="far fa-window-minimize opacity-5 me-2"></i>Minimize</a><a class="dropdown-item" href="#!"><i class="fas fa-redo opacity-5 me-2"></i> Reload</a><a class="dropdown-item" href="#!"><i class="far fa-trash-alt opacity-5 me-2"></i> Remove        </a></div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="preload-wrapper">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0" id="ordersDatatable">
+                                <thead>
+                                    <tr>
+                                        <th>Order Id</th>
+                                        <th>Name</th>
+                                        <th>Date</th>
+                                        <th>Total Price</th>
+                                        <th>Status</th>
+                                        <th>Review</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="align-middle">
+                                        <td>
+                                            <span class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="check0">
+                                                <label class="form-check-label" for="check0">#2458</label>
+                                            </span>
+                                        </td>
+                                        <td> <strong>Nielsen Cobb</strong><br><span class="text-muted text-sm">nielsencobb@memora.com</span></td>
+                                        <td>2021/07/29</td>
+                                        <td>$460.93</td>
+                                        <td><span class="badge badge-success-light"> <span class="indicator"></span>Open</span></td>
+                                        <td class="text-end" style="min-width: 125px;">
+                                            <a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-gray-500"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <td>
+                                            <span class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="check1">
+                                                <label class="form-check-label" for="check1">#2459</label>
+                                            </span>
+                                        </td>
+                                        <td> <strong>Margret Cote</strong><br><span class="text-muted text-sm">margretcote@zilidium.com</span></td>
+                                        <td>2021/04/11</td>
+                                        <td>$240.91</td>
+                                        <td><span class="badge badge-danger-light"> <span class="indicator"></span>Closed</span></td>
+                                        <td class="text-end" style="min-width: 125px;">
+                                            <a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-gray-500"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <td>
+                                            <span class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="check2">
+                                                <label class="form-check-label" for="check2">#2460</label>
+                                            </span>
+                                        </td>
+                                        <td> <strong>Rachel Vinson</strong><br><span class="text-muted text-sm">rachelvinson@chorizon.com</span></td>
+                                        <td>2021/01/09</td>
+                                        <td>$40.47</td>
+                                        <td><span class="badge badge-warning-light"> <span class="indicator"></span>On Hold</span></td>
+                                        <td class="text-end" style="min-width: 125px;">
+                                            <a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-gray-500"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <td>
+                                            <span class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="check3">
+                                                <label class="form-check-label" for="check3">#2461</label>
+                                            </span>
+                                        </td>
+                                        <td> <strong>Gabrielle Aguirre</strong><br><span class="text-muted text-sm">gabrielleaguirre@comverges.com</span></td>
+                                        <td>2021/12/27</td>
+                                        <td>$580.84</td>
+                                        <td><span class="badge badge-info-light"> <span class="indicator"></span>In Progress</span></td>
+                                        <td class="text-end" style="min-width: 125px;">
+                                            <a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-gray-500"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <td>
+                                            <span class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="check4">
+                                                <label class="form-check-label" for="check4">#2462</label>
+                                            </span>
+                                        </td>
+                                        <td> <strong>Spears Collier</strong><br><span class="text-muted text-sm">spearscollier@remold.com</span></td>
+                                        <td>2021/10/07</td>
+                                        <td>$760.70</td>
+                                        <td><span class="badge badge-success-light"> <span class="indicator"></span>Open</span></td>
+                                        <td class="text-end" style="min-width: 125px;">
+                                            <a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-gray-500"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <td>
+                                            <span class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="check5">
+                                                <label class="form-check-label" for="check5">#2463</label>
+                                            </span>
+                                        </td>
+                                        <td> <strong>Keisha Thomas</strong><br><span class="text-muted text-sm">keishathomas@euron.com</span></td>
+                                        <td>2021/02/30</td>
+                                        <td>$290.78</td>
+                                        <td><span class="badge badge-danger-light"> <span class="indicator"></span>Closed</span></td>
+                                        <td class="text-end" style="min-width: 125px;">
+                                            <a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-gray-500"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <td>
+                                            <span class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="check6">
+                                                <label class="form-check-label" for="check6">#2464</label>
+                                            </span>
+                                        </td>
+                                        <td> <strong>Elisabeth Key</strong><br><span class="text-muted text-sm">elisabethkey@netagy.com</span></td>
+                                        <td>2021/10/26</td>
+                                        <td>$620.75</td>
+                                        <td><span class="badge badge-warning-light"> <span class="indicator"></span>On Hold</span></td>
+                                        <td class="text-end" style="min-width: 125px;">
+                                            <a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-gray-500"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <td>
+                                            <span class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="check7">
+                                                <label class="form-check-label" for="check7">#2465</label>
+                                            </span>
+                                        </td>
+                                        <td> <strong>Patel Mack</strong><br><span class="text-muted text-sm">patelmack@zedalis.com</span></td>
+                                        <td>2021/08/27</td>
+                                        <td>$640.21</td>
+                                        <td><span class="badge badge-info-light"> <span class="indicator"></span>In Progress</span></td>
+                                        <td class="text-end" style="min-width: 125px;">
+                                            <a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-gray-500"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <td>
+                                            <span class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="check8">
+                                                <label class="form-check-label" for="check8">#2466</label>
+                                            </span>
+                                        </td>
+                                        <td> <strong>Erika Whitaker</strong><br><span class="text-muted text-sm">erikawhitaker@uniworld.com</span></td>
+                                        <td>2021/06/24</td>
+                                        <td>$790.76</td>
+                                        <td><span class="badge badge-success-light"> <span class="indicator"></span>Open</span></td>
+                                        <td class="text-end" style="min-width: 125px;">
+                                            <a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-gray-500"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <td>
+                                            <span class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="check9">
+                                                <label class="form-check-label" for="check9">#2467</label>
+                                            </span>
+                                        </td>
+                                        <td> <strong>Meyers Swanson</strong><br><span class="text-muted text-sm">meyersswanson@candecor.com</span></td>
+                                        <td>2021/06/11</td>
+                                        <td>$60.08</td>
+                                        <td><span class="badge badge-danger-light"> <span class="indicator"></span>Closed</span></td>
+                                        <td class="text-end" style="min-width: 125px;">
+                                            <a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-gray-500"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <td>
+                                            <span class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="check10">
+                                                <label class="form-check-label" for="check10">#2468</label>
+                                            </span>
+                                        </td>
+                                        <td> <strong>Townsend Sloan</strong><br><span class="text-muted text-sm">townsendsloan@rameon.com</span></td>
+                                        <td>2021/06/07</td>
+                                        <td>$80.91</td>
+                                        <td><span class="badge badge-warning-light"> <span class="indicator"></span>On Hold</span></td>
+                                        <td class="text-end" style="min-width: 125px;">
+                                            <a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-gray-500"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <td>
+                                            <span class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="check11">
+                                                <label class="form-check-label" for="check11">#2469</label>
+                                            </span>
+                                        </td>
+                                        <td> <strong>Millicent Henry</strong><br><span class="text-muted text-sm">millicenthenry@balooba.com</span></td>
+                                        <td>2021/08/23</td>
+                                        <td>$570.30</td>
+                                        <td><span class="badge badge-info-light"> <span class="indicator"></span>In Progress</span></td>
+                                        <td class="text-end" style="min-width: 125px;">
+                                            <a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-gray-500"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <td>
+                                            <span class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="check12">
+                                                <label class="form-check-label" for="check12">#2470</label>
+                                            </span>
+                                        </td>
+                                        <td> <strong>Madelyn Brock</strong><br><span class="text-muted text-sm">madelynbrock@combogene.com</span></td>
+                                        <td>2021/01/10</td>
+                                        <td>$470.64</td>
+                                        <td><span class="badge badge-success-light"> <span class="indicator"></span>Open</span></td>
+                                        <td class="text-end" style="min-width: 125px;">
+                                            <a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-gray-500"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <td>
+                                            <span class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="check13">
+                                                <label class="form-check-label" for="check13">#2471</label>
+                                            </span>
+                                        </td>
+                                        <td> <strong>Jenkins Carney</strong><br><span class="text-muted text-sm">jenkinscarney@dadabase.com</span></td>
+                                        <td>2021/10/12</td>
+                                        <td>$410.52</td>
+                                        <td><span class="badge badge-danger-light"> <span class="indicator"></span>Closed</span></td>
+                                        <td class="text-end" style="min-width: 125px;">
+                                            <a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-gray-500"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <td>
+                                            <span class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="check14">
+                                                <label class="form-check-label" for="check14">#2472</label>
+                                            </span>
+                                        </td>
+                                        <td> <strong>Grimes Delaney</strong><br><span class="text-muted text-sm">grimesdelaney@progenex.com</span></td>
+                                        <td>2021/01/20</td>
+                                        <td>$700.91</td>
+                                        <td><span class="badge badge-warning-light"> <span class="indicator"></span>On Hold</span></td>
+                                        <td class="text-end" style="min-width: 125px;">
+                                            <a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-gray-500"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <td>
+                                            <span class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="check15">
+                                                <label class="form-check-label" for="check15">#2473</label>
+                                            </span>
+                                        </td>
+                                        <td> <strong>Valencia Rivera</strong><br><span class="text-muted text-sm">valenciarivera@xleen.com</span></td>
+                                        <td>2021/08/27</td>
+                                        <td>$430.96</td>
+                                        <td><span class="badge badge-info-light"> <span class="indicator"></span>In Progress</span></td>
+                                        <td class="text-end" style="min-width: 125px;">
+                                            <a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-gray-500"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <td>
+                                            <span class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="check16">
+                                                <label class="form-check-label" for="check16">#2474</label>
+                                            </span>
+                                        </td>
+                                        <td> <strong>Helene Solomon</strong><br><span class="text-muted text-sm">helenesolomon@zomboid.com</span></td>
+                                        <td>2021/01/25</td>
+                                        <td>$160.50</td>
+                                        <td><span class="badge badge-success-light"> <span class="indicator"></span>Open</span></td>
+                                        <td class="text-end" style="min-width: 125px;">
+                                            <a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-gray-500"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <td>
+                                            <span class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="check17">
+                                                <label class="form-check-label" for="check17">#2475</label>
+                                            </span>
+                                        </td>
+                                        <td> <strong>Kathleen Holman</strong><br><span class="text-muted text-sm">kathleenholman@hotcakes.com</span></td>
+                                        <td>2021/10/04</td>
+                                        <td>$540.71</td>
+                                        <td><span class="badge badge-danger-light"> <span class="indicator"></span>Closed</span></td>
+                                        <td class="text-end" style="min-width: 125px;">
+                                            <a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-gray-500"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <td>
+                                            <span class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="check18">
+                                                <label class="form-check-label" for="check18">#2476</label>
+                                            </span>
+                                        </td>
+                                        <td> <strong>Merrill Garrett</strong><br><span class="text-muted text-sm">merrillgarrett@affluex.com</span></td>
+                                        <td>2021/11/04</td>
+                                        <td>$710.04</td>
+                                        <td><span class="badge badge-warning-light"> <span class="indicator"></span>On Hold</span></td>
+                                        <td class="text-end" style="min-width: 125px;">
+                                            <a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-gray-500"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <td>
+                                            <span class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="check19">
+                                                <label class="form-check-label" for="check19">#2477</label>
+                                            </span>
+                                        </td>
+                                        <td> <strong>Sallie Booth</strong><br><span class="text-muted text-sm">salliebooth@ziggles.com</span></td>
+                                        <td>2021/12/08</td>
+                                        <td>$220.59</td>
+                                        <td><span class="badge badge-info-light"> <span class="indicator"></span>In Progress</span></td>
+                                        <td class="text-end" style="min-width: 125px;">
+                                            <a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-warning"></i></a><a href="#!"><i class="fa fa-star text-gray-500"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div><span class="me-2" id="categoryBulkActionOrders">
+                            <select class="form-select form-select-sm d-inline w-auto" name="categoryBulkAction">
+                                <option>Bulk Actions</option>
+                                <option>Delete</option>
+                            </select>
+                            <button class="btn btn-sm btn-outline-primary align-top">Apply            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+ *@

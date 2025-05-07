@@ -1,0 +1,426 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="~/assets/favicon/favicon.ico" type="image/x-icon">
+
+    <!-- Libs CSS -->
+    <link rel="stylesheet" href="~/assets/css/libs.bundle.css">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="~/assets/css/theme.bundle.css">
+    <style>
+        .flag {
+            cursor: pointer;
+            width: 30px;
+            height: 20px;
+            margin: 0 5px;
+        }
+
+        nav-link {
+            display: block;
+            padding: .5rem 1rem;
+            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out
+        }
+    </style>
+    <!-- Title -->
+    <title>
+        Shopper
+
+    </title>
+</head>
+<body>
+
+    <!-- PROMO -->
+    <div class="py-3 bg-dark bg-pattern ">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+
+                    <!-- Text -->
+                    <div class="text-center text-white">
+                        <span class="heading-xxs letter-spacing-xl">
+                            ⚡️ Happy Holiday Deals on Everything ⚡️
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-xl navbar-light ">
+        <div class="container">
+
+            <!-- Brand -->
+            <a class="navbar-brand d-xl-none" asp-action="Index" asp-controller="Home">
+                Shopper
+            </a>
+
+
+            <!-- Collapse -->
+            <div class="collapse navbar-collapse" id="navbarClassicCollapse">
+
+                <!-- Nav -->
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+
+                        <!-- Toggle -->
+                        <a class="btn" data-bs-toggle="dropdown" href="#">@Localizer["Home"]</a>
+                    </li>
+                    <li class="nav-item dropdown position-static">
+
+                        <!-- Toggle -->
+                        <a class="btn" data-bs-toggle="dropdown" href="#">@Localizer["Catalog"]</a>    @* Buradaki içerik bilerek bırakıldı fikir oluşturması açısından *@
+
+                        @await Component.InvokeAsync("Catalog")
+           
+                        <!-- Menu -->
+                        </li>
+                    <li class="nav-item dropdown">
+
+                        <!-- Toggle -->
+                        <a class="btn" href="@Url.Action("AllProducts", "Home")">@Localizer["Shop"]</a>
+
+                    </li>
+
+                   @*  <li class="nav-item">
+                        <a class="btn" href="@Url.Action("Privacy", "Home")">Beden Sorgula</a>
+                    </li> *@
+                </ul>
+
+                <!-- Brand -->
+                <a class="navbar-brand mx-auto d-none d-xl-block" asp-action="Index" asp-controller="Home">
+                    Shopper.
+                </a>
+
+                <!-- Nav -->
+                <ul class="navbar-nav nav-divided">
+                    @* <li class="nav-item dropdown">
+
+                        <!-- Toggle -->
+                        <a class="btn text-body" data-bs-toggle="dropdown" href="#">United States</a>
+
+                        <!-- Menu -->
+                        <div class="dropdown-menu">
+                            <div class="card card-lg">
+                                <div class="card-body">
+                                    <ul class="list-styled fs-sm">
+                                        <li class="list-styled-item">
+                                            <a class="list-styled-link" href="#!">United States</a>
+                                        </li>
+                                        <li class="list-styled-item">
+                                            <a class="list-styled-link" href="#!">Canada</a>
+                                        </li>
+                                        <li class="list-styled-item">
+                                            <a class="list-styled-link" href="#!">Germany</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </li> *@
+                    <li class="nav-item dropdown">
+
+                        <!-- Toggle -->
+                        <a class="btn text-body" data-bs-toggle="dropdown" href="#">USD</a>
+
+                        <!-- Menu -->
+                        <div class="dropdown-menu">
+                            <div class="card card-lg">
+                                <div class="card-body">
+                                    <ul class="list-styled fs-sm">
+                                        <li class="list-styled-item">
+                                            <a class="list-styled-link" href="#!">USD</a>
+                                        </li>
+                                        <li class="list-styled-item">
+                                            <a class="list-styled-link" href="#!">EUR</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+
+                        <!-- Toggle -->
+                        <a class="btn text-body" data-bs-toggle="dropdown" href="#">@Localizer["EN"]</a>
+
+                        <!-- Menu -->
+                        <div class="dropdown-menu">
+                            <div class="card card-lg">
+                                <div class="card-body">
+                                    <ul class="list-styled fs-sm">
+                                        <li class="list-styled-item">
+                                            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Flag_of_Turkey.svg" class="flag" id="flag-tr" alt="Türkçe">
+                                        </li>
+                                        <li class="list-styled-item">
+                                            <img src="https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg" class="flag" id="flag-en" alt="English">
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </li>
+                    @if (User.IsInRole("Customer"))
+                    {
+                        <li>
+                            <a class="btn" asp-action="Profile" asp-controller="Account">@Localizer["Profile"]</a>
+                        </li>
+                        <li>
+                            <a class="btn" asp-action="Logout" asp-controller="Account">@Localizer["Logout"]</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a class="btn" asp-action="Login" asp-controller="Account">@Localizer["Login"]</a>
+                        </li>
+                        <li>
+                            <a class="btn" asp-action="Register" asp-controller="Account">@Localizer["Register"]</a>
+                        </li>
+                    }
+                </ul>
+                <!-- Nav -->
+                <ul class="navbar-nav flex-row">
+                    <li class="nav-item ms-lg-n4">
+                        <a class="btn" href="@Url.Action("Index", "Cart")">
+                            <span data-cart-items="2">
+                                <i class="fe fe-shopping-cart"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+
+
+
+
+
+            </div>
+        </div>
+    </nav>
+
+
+
+
+    <!--Normalde burada bir container yapısı yok. Mevcut Layout'ta section yapısı kullanılmış. Ürün eklenmeye başladığında Section yapısı ile değiştirilebilir-->
+    <div class="page-holder bg-gray-100">
+        <div class="container-fluid px-lg-4 px-xl-5">
+
+            @{
+                ViewData["Title"] = "Home Page";
+                Layout = null;
+            }
+
+
+
+            @await Component.InvokeAsync("Slider")
+             @await Component.InvokeAsync("Category")
+            @await Component.InvokeAsync("NewProducts")      
+
+
+
+
+
+
+
+            <!-- FOOTER -->
+            <footer class="bg-dark bg-cover " style="background-image: url(assets/img/patterns/pattern-2.svg)">
+                <div class="py-12 border-bottom border-gray-700">
+                    <div class="container">
+
+                        <div class="row">
+                            <div class="col-12 col-md-3">
+
+                                <!-- Heading -->
+                                <h4 class="mb-6 text-white">Shopper.</h4>
+
+                                <!-- Social -->
+                                <ul class="list-unstyled list-inline mb-7 mb-md-0">
+                                    <li class="list-inline-item">
+                                        <a href="#!" class="text-gray-350">
+                                            <i class="fab fa-facebook-f"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#!" class="text-gray-350">
+                                            <i class="fab fa-youtube"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#!" class="text-gray-350">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#!" class="text-gray-350">
+                                            <i class="fab fa-instagram"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#!" class="text-gray-350">
+                                            <i class="fab fa-medium"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                            <div class="col-6 col-sm">
+
+                                <!-- Heading -->
+                                <h6 class="heading-xxs mb-4 text-white">
+                                    Support
+                                </h6>
+
+                                <!-- Links -->
+                                <ul class="list-unstyled mb-7 mb-sm-0">
+                                    <li>
+                                        <a class="text-gray-300" href="contact-us.html">Contact Us</a>
+                                    </li>
+                                    <li>
+                                        <a class="text-gray-300" href="faq.html">FAQs</a>
+                                    </li>
+                                    <li>
+                                        <a class="text-gray-300" data-bs-toggle="modal" href="#modalSizeChart">Size Guide</a>
+                                    </li>
+                                    <li>
+                                        <a class="text-gray-300" href="shipping-and-returns.html">Shipping & Returns</a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                            <div class="col-6 col-sm">
+
+                                <!-- Heading -->
+                                <h6 class="heading-xxs mb-4 text-white">
+                                    Shop
+                                </h6>
+
+                                <!-- Links -->
+                                <ul class="list-unstyled mb-7 mb-sm-0">
+                                    <li>
+                                        <a class="text-gray-300" href="shop.html">Men's Shopping</a>
+                                    </li>
+                                    <li>
+                                        <a class="text-gray-300" href="shop.html">Women's Shopping</a>
+                                    </li>
+                                    <li>
+                                        <a class="text-gray-300" href="shop.html">Kids' Shopping</a>
+                                    </li>
+                                    <li>
+                                        <a class="text-gray-300" href="shop.html">Discounts</a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                            <div class="col-6 col-sm">
+
+                                <!-- Heading -->
+                                <h6 class="heading-xxs mb-4 text-white">
+                                    Company
+                                </h6>
+
+                                <!-- Links -->
+                                <ul class="list-unstyled mb-0">
+                                    <li>
+                                        <a class="text-gray-300" href="about.html">Our Story</a>
+                                    </li>
+                                    <li>
+                                        <a class="text-gray-300" href="#!">Careers</a>
+                                    </li>
+                                    <li>
+                                        <a class="text-gray-300" href="#!">Terms & Conditions</a>
+                                    </li>
+                                    <li>
+                                        <a class="text-gray-300" href="#!">Privacy & Cookie policy</a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                            <div class="col-6 col-sm">
+
+                                <!-- Heading -->
+                                <h6 class="heading-xxs mb-4 text-white">
+                                    Contact
+                                </h6>
+
+                                <!-- Links -->
+                                <ul class="list-unstyled mb-0">
+                                    <li>
+                                        <a class="text-gray-300" href="#!">90-123-456-7788</a>
+                                    </li>
+                                    <li>
+                                        <a class="text-gray-300" href="#!">90-123-456-7788</a>
+                                    </li>
+                                    <li>
+                                        <a class="text-gray-300" href="#!">help@bilgeadamekip.com</a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="py-6">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+
+                                <!-- Copyright -->
+                                <p class="mb-3 mb-md-0 fs-xxs text-muted">
+                                    © 2024 All rights reserved. Designed by BilgeAdam - Ekip1.
+                                </p>
+
+                            </div>
+                            <div class="col-auto">
+
+                                <!-- Payment methods -->
+                                <img class="footer-payment" src="~/assets/img/payment/mastercard.svg" alt="...">
+                                <img class="footer-payment" src="~/assets/img/payment/visa.svg" alt="...">
+                                <img class="footer-payment" src="~/assets/img/payment/amex.svg" alt="...">
+                                <img class="footer-payment" src="~/assets/img/payment/paypal.svg" alt="...">
+                                <img class="footer-payment" src="~/assets/img/payment/maestro.svg" alt="...">
+                                <img class="footer-payment" src="~/assets/img/payment/klarna.svg" alt="...">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <!-- JAVASCRIPT -->
+    <!-- Map (replace the API key to enable) -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnKt8_N4-FKOnhI_pSaDL7g_g-XI1-R9E"></script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('flag-tr').addEventListener('click', function () {
+                setLanguage('tr');
+            });
+
+            document.getElementById('flag-en').addEventListener('click', function () {
+                setLanguage('en');
+            });
+        });
+
+        function setLanguage(culture) {
+            document.cookie = ".AspNetCore.Culture=c=" + culture + "|uic=" + culture + ";path=/";
+            location.reload();
+        }
+    </script>
+    <!-- Vendor JS -->
+    <script src="~/assets/js/vendor.bundle.js"></script>
+
+    <!-- Theme JS -->
+    <script src="~/assets/js/theme.bundle.js"></script>
+    @await Component.InvokeAsync("Notyf")
+</body>
+</html>
+

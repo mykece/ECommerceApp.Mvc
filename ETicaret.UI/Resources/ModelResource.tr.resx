@@ -1,0 +1,879 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Action" xml:space="preserve">
+    <value>Aksiyon</value>
+  </data>
+  <data name="Active Campaigns" xml:space="preserve">
+    <value>Aktif Kampanyalar</value>
+  </data>
+  <data name="Add New" xml:space="preserve">
+    <value>Yeni Ekle</value>
+  </data>
+  <data name="Add to Cart" xml:space="preserve">
+    <value>Sepete Ekle</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Adres</value>
+  </data>
+  <data name="Address Name" xml:space="preserve">
+    <value>Adres Adı</value>
+  </data>
+  <data name="Addresses" xml:space="preserve">
+    <value>Adreslerim</value>
+  </data>
+  <data name="AddressName" xml:space="preserve">
+    <value>Adres Adı</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Yönetici</value>
+  </data>
+  <data name="Admin  listed succesfully!" xml:space="preserve">
+    <value>Admin başarıyla listelendi!</value>
+  </data>
+  <data name="Admin added successfully!" xml:space="preserve">
+    <value>Admin başarıyla eklendi!</value>
+  </data>
+  <data name="Admin already added!" xml:space="preserve">
+    <value>Admin zaten eklenmiş!</value>
+  </data>
+  <data name="Admin could not be found!" xml:space="preserve">
+    <value>Admin bulunamadı!</value>
+  </data>
+  <data name="Admin could not be updated!" xml:space="preserve">
+    <value>Admin güncellenemedi!</value>
+  </data>
+  <data name="Admin Create" xml:space="preserve">
+    <value>Yönetici Oluştur</value>
+  </data>
+  <data name="Admin information not found. Please try again." xml:space="preserve">
+    <value>Admin bilgisi bulunamadı. Lütfen tekrar deneyin.</value>
+  </data>
+  <data name="Admin List" xml:space="preserve">
+    <value>Yönetici Listesi</value>
+  </data>
+  <data name="Admin Update" xml:space="preserve">
+    <value>Yönetici Güncelle</value>
+  </data>
+  <data name="Admin updated successfully!" xml:space="preserve">
+    <value>Admin başarıyla güncellendi!</value>
+  </data>
+  <data name="Back to List" xml:space="preserve">
+    <value>Listeye geri dön</value>
+  </data>
+  <data name="Back to Login" xml:space="preserve">
+    <value>Girişe Geri Dön</value>
+  </data>
+  <data name="Bags" xml:space="preserve">
+    <value>Çantalar</value>
+  </data>
+  <data name="Blog" xml:space="preserve">
+    <value>Blog</value>
+  </data>
+  <data name="By registering your details, you agree with our Terms &amp; Conditions and Privacy and Cookie Policy." xml:space="preserve">
+    <value>Bilgilerinizi kaydederek Şartlar ve Koşullarımızı ve Gizlilik ve Çerez Politikamızı kabul etmiş olursunuz.</value>
+  </data>
+  <data name="Campaign" xml:space="preserve">
+    <value>Kampanya</value>
+  </data>
+  <data name="Campaign added successfully!" xml:space="preserve">
+    <value>Kampanya başarıyla eklendi!</value>
+  </data>
+  <data name="Campaign already added!" xml:space="preserve">
+    <value>Kampanya zaten eklenmiş!</value>
+  </data>
+  <data name="Campaign could not be found!" xml:space="preserve">
+    <value>Kampanya bulunamadı!</value>
+  </data>
+  <data name="Campaign could not be updated!" xml:space="preserve">
+    <value>Kampanya güncellenemedi!</value>
+  </data>
+  <data name="Campaign History" xml:space="preserve">
+    <value>Kampanya Geçmişi</value>
+  </data>
+  <data name="Campaign List" xml:space="preserve">
+    <value>Kampanya Listesi</value>
+  </data>
+  <data name="Campaign Status" xml:space="preserve">
+    <value>Kampanya Durumu</value>
+  </data>
+  <data name="Campaign Type" xml:space="preserve">
+    <value>Kampanya Türü</value>
+  </data>
+  <data name="Campaign Update" xml:space="preserve">
+    <value>Kampanya Güncelle</value>
+  </data>
+  <data name="Campaign updated successfully!" xml:space="preserve">
+    <value>Kampanya başarıyla güncellendi</value>
+  </data>
+  <data name="Campaigns could not be found!" xml:space="preserve">
+    <value>Kampanya bulunamadı!</value>
+  </data>
+  <data name="Campaigns listed successfully!" xml:space="preserve">
+    <value>Kampanya başarıyla listelendi!</value>
+  </data>
+  <data name="Catalog" xml:space="preserve">
+    <value>Katalog</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Kategoriler</value>
+  </data>
+  <data name="Categories Name" xml:space="preserve">
+    <value>Kategori Adları</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategori</value>
+  </data>
+  <data name="Category  listed succesfully!" xml:space="preserve">
+    <value>Kategori başarıyla listelendi!</value>
+  </data>
+  <data name="Category added successfully!" xml:space="preserve">
+    <value>Kategori başarıyla eklendi!</value>
+  </data>
+  <data name="Category already added!" xml:space="preserve">
+    <value>Kategori zaten eklenmiş!</value>
+  </data>
+  <data name="Category could not be found!" xml:space="preserve">
+    <value>Kategori bulunamadı!</value>
+  </data>
+  <data name="Category could not be updated!" xml:space="preserve">
+    <value>Kategori güncellenemedi!</value>
+  </data>
+  <data name="Category Create" xml:space="preserve">
+    <value>Kategori Ekle</value>
+  </data>
+  <data name="Category List" xml:space="preserve">
+    <value>Kategorileri Listele</value>
+  </data>
+  <data name="Category Update" xml:space="preserve">
+    <value>Kategori Güncelle</value>
+  </data>
+  <data name="Category updated successfully!" xml:space="preserve">
+    <value>Kategori başarıyla güncellendi!</value>
+  </data>
+  <data name="CategoryName" xml:space="preserve">
+    <value>KategoriAdı</value>
+  </data>
+  <data name="Change Password" xml:space="preserve">
+    <value>Şifremi Değiştir</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Seçiniz</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>Şehir</value>
+  </data>
+  <data name="Click Here to go back to Login Page" xml:space="preserve">
+    <value>Giriş Sayfasına dönmek için Buraya Tıklayın</value>
+  </data>
+  <data name="Components" xml:space="preserve">
+    <value>Bileşenler</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>İletişim</value>
+  </data>
+  <data name="Content Management" xml:space="preserve">
+    <value>İçerik Yönetimi</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Oluştur</value>
+  </data>
+  <data name="Create New" xml:space="preserve">
+    <value>Yeni Oluştur</value>
+  </data>
+  <data name="Create New Address" xml:space="preserve">
+    <value>Yeni Adres Ekle</value>
+  </data>
+  <data name="Create New Admin" xml:space="preserve">
+    <value>Yeni Admin Ekle</value>
+  </data>
+  <data name="Create New Campaign" xml:space="preserve">
+    <value>Yeni Kampanya Oluştur</value>
+  </data>
+  <data name="Create New Category" xml:space="preserve">
+    <value>Yeni Kategori Ekle</value>
+  </data>
+  <data name="Create New Customer" xml:space="preserve">
+    <value>Yeni Müşteri Ekle</value>
+  </data>
+  <data name="Create New Product" xml:space="preserve">
+    <value>Yeni Ürün Ekle</value>
+  </data>
+  <data name="Create New Size" xml:space="preserve">
+    <value>Yeni Boyut Ekle</value>
+  </data>
+  <data name="Create New SizeType" xml:space="preserve">
+    <value>Yeni Boyut Türü Ekle</value>
+  </data>
+  <data name="Current Password" xml:space="preserve">
+    <value>Mevcut Şifreniz</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Müşteri</value>
+  </data>
+  <data name="Customer Create" xml:space="preserve">
+    <value>Müşteri Ekle</value>
+  </data>
+  <data name="Customer List" xml:space="preserve">
+    <value>Müşteri Listesi</value>
+  </data>
+  <data name="Customer Update" xml:space="preserve">
+    <value>Müşteri Güncelle</value>
+  </data>
+  <data name="Dashboards" xml:space="preserve">
+    <value>Gösterge Paneli</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Tarih</value>
+  </data>
+  <data name="Date of Birth" xml:space="preserve">
+    <value>Doğum Tarihi</value>
+  </data>
+  <data name="DateOfBirth" xml:space="preserve">
+    <value>Doğum Tarihi</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="Delete failed!" xml:space="preserve">
+    <value>Silme işlemi başarısız!</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Açıklamalar</value>
+  </data>
+  <data name="Discontinued" xml:space="preserve">
+    <value>Satışını Durdur</value>
+  </data>
+  <data name="Discount" xml:space="preserve">
+    <value>İndirim</value>
+  </data>
+  <data name="Discount Percentage" xml:space="preserve">
+    <value>İndirim Oranı</value>
+  </data>
+  <data name="Docs" xml:space="preserve">
+    <value>Dökümanlar</value>
+  </data>
+  <data name="Don't have an account?" xml:space="preserve">
+    <value>Halâ hesabınız yok mu?</value>
+  </data>
+  <data name="Dresses" xml:space="preserve">
+    <value>Elbiseler</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Email Address" xml:space="preserve">
+    <value>Email Adresi</value>
+  </data>
+  <data name="Email or password incorrect!" xml:space="preserve">
+    <value>E-posta veya şifre hatalı!</value>
+  </data>
+  <data name="EN" xml:space="preserve">
+    <value>TR</value>
+  </data>
+  <data name="End Date" xml:space="preserve">
+    <value>Bitiş Zamanı</value>
+  </data>
+  <data name="Enter Your Email" xml:space="preserve">
+    <value>E-postanızı giriniz</value>
+  </data>
+  <data name="Enter Your Password" xml:space="preserve">
+    <value>Şifrenizi giriniz</value>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>Kadın</value>
+  </data>
+  <data name="Fill in the e-mail field!" xml:space="preserve">
+    <value>E-mail alanını doldurunuz!</value>
+  </data>
+  <data name="Finance" xml:space="preserve">
+    <value>Finans</value>
+  </data>
+  <data name="First Name" xml:space="preserve">
+    <value>Ad</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Ad</value>
+  </data>
+  <data name="Forgot Password ?" xml:space="preserve">
+    <value>Parolanızı mı unuttunuz ?</value>
+  </data>
+  <data name="Forms" xml:space="preserve">
+    <value>Biçimler</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>Cinsiyet</value>
+  </data>
+  <data name="Hi, welcome back!" xml:space="preserve">
+    <value>Merhaba, Hoş geldiniz!</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>AnaSayfa</value>
+  </data>
+  <data name="If you don't have an account please," xml:space="preserve">
+    <value>Hesabınız yoksa lütfen,</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Fotoğraf</value>
+  </data>
+  <data name="Images" xml:space="preserve">
+    <value>Fotoğraflar</value>
+  </data>
+  <data name="In Stock" xml:space="preserve">
+    <value>Stokta Var</value>
+  </data>
+  <data name="Indroduction" xml:space="preserve">
+    <value>Giriş</value>
+  </data>
+  <data name="Is Active" xml:space="preserve">
+    <value>AktifMi</value>
+  </data>
+  <data name="Items" xml:space="preserve">
+    <value>Öğeler</value>
+  </data>
+  <data name="Kids" xml:space="preserve">
+    <value>Çocuklar</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Dil</value>
+  </data>
+  <data name="Last Name" xml:space="preserve">
+    <value>Soyad</value>
+  </data>
+  <data name="Last Ordered" xml:space="preserve">
+    <value>Son Sipariş</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Soyad</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Giriş Yap</value>
+  </data>
+  <data name="Login Successful!" xml:space="preserve">
+    <value>Giriş Başarılı!</value>
+  </data>
+  <data name="Login successfully." xml:space="preserve">
+    <value>Giriş başarılı.</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Çıkış Yap</value>
+  </data>
+  <data name="Main" xml:space="preserve">
+    <value>Ana</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>Erkek</value>
+  </data>
+  <data name="Man" xml:space="preserve">
+    <value>Erkek</value>
+  </data>
+  <data name="Men" xml:space="preserve">
+    <value>Erkekler</value>
+  </data>
+  <data name="MEN PRODUCTS" xml:space="preserve">
+    <value>ERKEK ÜRÜNLERİ</value>
+  </data>
+  <data name="My Account" xml:space="preserve">
+    <value>Hesabım</value>
+  </data>
+  <data name="My Profile" xml:space="preserve">
+    <value>Profil Bilgileri</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Ad</value>
+  </data>
+  <data name="New Password" xml:space="preserve">
+    <value>Yeni Şifreniz</value>
+  </data>
+  <data name="NewImage" xml:space="preserve">
+    <value>Yeni Resim</value>
+  </data>
+  <data name="No data found to update!" xml:space="preserve">
+    <value>Güncellenecek veri bulunamadı!</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Seçenekler</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>Sipariş</value>
+  </data>
+  <data name="Order Details" xml:space="preserve">
+    <value>Sipariş Detayı</value>
+  </data>
+  <data name="Pages" xml:space="preserve">
+    <value>Sayfalar</value>
+  </data>
+  <data name="Parent Categories" xml:space="preserve">
+    <value>Alt Kategoriler</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Şifre</value>
+  </data>
+  <data name="Password change failed. Please try again." xml:space="preserve">
+    <value>Şifre değiştirme başarısız oldu. Lütfen tekrar deneyin.</value>
+  </data>
+  <data name="Password change was successful." xml:space="preserve">
+    <value>Şifre değiştirme başarılı oldu.</value>
+  </data>
+  <data name="Password field cannot be left blank." xml:space="preserve">
+    <value>Şifre alanı boş bırakılamaz.</value>
+  </data>
+  <data name="Password is updated!" xml:space="preserve">
+    <value>Şifre güncellendi!</value>
+  </data>
+  <data name="Password must be at least 6 characters long!" xml:space="preserve">
+    <value>Şifre en az 6 karakter uzunluğunda olmalıdır!</value>
+  </data>
+  <data name="Password reset link has been sent. Please check your E-mail Address." xml:space="preserve">
+    <value>Şifre sıfırlama bağlantısı gönderildi. Lütfen E-posta Adresinizi kontrol edin.</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Telefon</value>
+  </data>
+  <data name="Phone Number" xml:space="preserve">
+    <value>Telefon Numarası</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Telefon Numarası</value>
+  </data>
+  <data name="Please enter a valid password!" xml:space="preserve">
+    <value>Lütfen geçerli bir şifre giriniz!</value>
+  </data>
+  <data name="Please enter an e-mail in a valid format!" xml:space="preserve">
+    <value>Lütfen geçerli bir formatta mail giriniz!</value>
+  </data>
+  <data name="Please enter an email address in valid format." xml:space="preserve">
+    <value>Lütfen geçerli formatta bir e-posta adresi girin.</value>
+  </data>
+  <data name="Please enter data in e-mail format!" xml:space="preserve">
+    <value>Lütfen verileri e-posta formatında girin!</value>
+  </data>
+  <data name="Please fill in all fields as requested!" xml:space="preserve">
+    <value>Lütfen tüm alanları istenilen şekilde doldurun!</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Fiyat</value>
+  </data>
+  <data name="PriceWithoutCampaign" xml:space="preserve">
+    <value>Kampanyasız Birim Fiyatı</value>
+  </data>
+  <data name="Privacy" xml:space="preserve">
+    <value>Gizlilik Politikası</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Ürün</value>
+  </data>
+  <data name="Product  listed succesfully!" xml:space="preserve">
+    <value>Ürün başarıyla listelendi!</value>
+  </data>
+  <data name="Product added successfully!" xml:space="preserve">
+    <value>Ürün başarıyla eklendi!</value>
+  </data>
+  <data name="Product already added!" xml:space="preserve">
+    <value>Ürün zaten eklenmiş!</value>
+  </data>
+  <data name="Product could not be found!" xml:space="preserve">
+    <value>Ürün bulunamadı!</value>
+  </data>
+  <data name="Product could not be updated!" xml:space="preserve">
+    <value>Ürün güncellenemedi!</value>
+  </data>
+  <data name="Product Count" xml:space="preserve">
+    <value>Ürün Sayısı</value>
+  </data>
+  <data name="Product Create" xml:space="preserve">
+    <value>Ürün Ekle</value>
+  </data>
+  <data name="Product List" xml:space="preserve">
+    <value>Ürün Listesi</value>
+  </data>
+  <data name="Product Update" xml:space="preserve">
+    <value>Ürün Güncelle</value>
+  </data>
+  <data name="Product updated successfully!" xml:space="preserve">
+    <value>Ürün başarıyla güncellendi!</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Ürün Adı</value>
+  </data>
+  <data name="Products" xml:space="preserve">
+    <value>Ürünler</value>
+  </data>
+  <data name="Products on the List." xml:space="preserve">
+    <value>Listeye Eklenen Ürünler</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="Profile Admin" xml:space="preserve">
+    <value>Admin Profili</value>
+  </data>
+  <data name="Profile User" xml:space="preserve">
+    <value>Kullanıcı Profili</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Miktar</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Kayıt Ol</value>
+  </data>
+  <data name="Reset Your Password" xml:space="preserve">
+    <value>Şifrenizi Sıfırlayın</value>
+  </data>
+  <data name="Review" xml:space="preserve">
+    <value>Yorumlar</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Rol</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Arama</value>
+  </data>
+  <data name="Select Size Type" xml:space="preserve">
+    <value>Boyut Türü Seçiniz</value>
+  </data>
+  <data name="Select Size Types" xml:space="preserve">
+    <value>Boyut Türlerini Seçiniz</value>
+  </data>
+  <data name="Select Type" xml:space="preserve">
+    <value>Türü Seçiniz</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Paylaşım</value>
+  </data>
+  <data name="Shipping" xml:space="preserve">
+    <value>Kargo</value>
+  </data>
+  <data name="Shipping Address" xml:space="preserve">
+    <value>Gönderi Adresi</value>
+  </data>
+  <data name="Shoes" xml:space="preserve">
+    <value>Ayakkabı</value>
+  </data>
+  <data name="Shop" xml:space="preserve">
+    <value>Mağaza</value>
+  </data>
+  <data name="Shop by Category" xml:space="preserve">
+    <value>Kategoriye Göre Alışveriş</value>
+  </data>
+  <data name="Site Business" xml:space="preserve">
+    <value>Site İşlemleri</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Boyut</value>
+  </data>
+  <data name="Size added successfully!" xml:space="preserve">
+    <value>Beden başarıyla eklendi!</value>
+  </data>
+  <data name="Size already added!" xml:space="preserve">
+    <value>Beden zaten eklenmiş!</value>
+  </data>
+  <data name="Size chart" xml:space="preserve">
+    <value>Beden Tablosu</value>
+  </data>
+  <data name="Size could not be found!" xml:space="preserve">
+    <value>Beden bulunamadı!</value>
+  </data>
+  <data name="Size could not be updated!" xml:space="preserve">
+    <value>Beden güncellenemedi!</value>
+  </data>
+  <data name="Size List" xml:space="preserve">
+    <value>Beden Listesi</value>
+  </data>
+  <data name="Size listed succesfully!" xml:space="preserve">
+    <value>Beden başarıyla listelendi!</value>
+  </data>
+  <data name="Size Type" xml:space="preserve">
+    <value>Boyut Türü</value>
+  </data>
+  <data name="Size Type added successfully!" xml:space="preserve">
+    <value>Beden türü başarıyla eklendi!</value>
+  </data>
+  <data name="Size type already added!" xml:space="preserve">
+    <value>Beden türü zaten eklenmiş!</value>
+  </data>
+  <data name="Size type could not be updated!" xml:space="preserve">
+    <value>Beden türü güncellenemedi!</value>
+  </data>
+  <data name="Size Type List" xml:space="preserve">
+    <value>Beden Türü Listesi</value>
+  </data>
+  <data name="Size type updated successfully!" xml:space="preserve">
+    <value>Beden türü başarıyla güncellendi!</value>
+  </data>
+  <data name="Size types could not be found!" xml:space="preserve">
+    <value>Beden türü bulunamadı!</value>
+  </data>
+  <data name="Size types listed succesfully!" xml:space="preserve">
+    <value>Beden türü başarıyla listelendi!</value>
+  </data>
+  <data name="Size Types Name" xml:space="preserve">
+    <value>Beden Türleri</value>
+  </data>
+  <data name="Size Update" xml:space="preserve">
+    <value>Boyut Güncelle</value>
+  </data>
+  <data name="Size updated successfully!" xml:space="preserve">
+    <value>Beden başarıyla güncellendi!</value>
+  </data>
+  <data name="SizeName" xml:space="preserve">
+    <value>Boyutu</value>
+  </data>
+  <data name="Sizes" xml:space="preserve">
+    <value>Boyutlar</value>
+  </data>
+  <data name="SizeType Update" xml:space="preserve">
+    <value>Boyut Türü Güncelle</value>
+  </data>
+  <data name="SizeTypeName" xml:space="preserve">
+    <value>Beden Türü Adı</value>
+  </data>
+  <data name="Skirts" xml:space="preserve">
+    <value>Etekler</value>
+  </data>
+  <data name="Spent" xml:space="preserve">
+    <value>Harcanan</value>
+  </data>
+  <data name="Start Date" xml:space="preserve">
+    <value>Başlangıç Zamanı</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Durum</value>
+  </data>
+  <data name="Stock" xml:space="preserve">
+    <value>Stok</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Gönder</value>
+  </data>
+  <data name="Subtotal" xml:space="preserve">
+    <value>Ara Toplam</value>
+  </data>
+  <data name="Successfully deleted!" xml:space="preserve">
+    <value>Silme işlemi başarılı.</value>
+  </data>
+  <data name="Surname" xml:space="preserve">
+    <value>Soyad</value>
+  </data>
+  <data name="Tables" xml:space="preserve">
+    <value>Tablolar</value>
+  </data>
+  <data name="The description cannot be ignored!" xml:space="preserve">
+    <value>Açıklama göz ardı edilemez!</value>
+  </data>
+  <data name="The description cannot be null!" xml:space="preserve">
+    <value>Açıklama boş olamaz!</value>
+  </data>
+  <data name="The e-mail field cannot be ignored!" xml:space="preserve">
+    <value>E-posta alanı göz ardı edilemez!</value>
+  </data>
+  <data name="The e-mail field cannot be left blank." xml:space="preserve">
+    <value>E-mail alanı boş bırakılamaz.</value>
+  </data>
+  <data name="The e-mail field cannot be null!" xml:space="preserve">
+    <value>E-posta alanı boş olamaz!</value>
+  </data>
+  <data name="The First Name field cannot be ignored!" xml:space="preserve">
+    <value>Ad alanı göz ardı edilemez!</value>
+  </data>
+  <data name="The First Name field cannot be null!" xml:space="preserve">
+    <value>Ad alanı boş olamaz!</value>
+  </data>
+  <data name="The Last Name field cannot be ignored!" xml:space="preserve">
+    <value>Soyadı alanı göz ardı edilemez!</value>
+  </data>
+  <data name="The Last Name field cannot be null!" xml:space="preserve">
+    <value>Soyadı alanı boş olamaz!</value>
+  </data>
+  <data name="The new password field cannot be left blank!" xml:space="preserve">
+    <value>Yeni şifre alanı boş bırakılamaz!</value>
+  </data>
+  <data name="The product name cannot be ignored!" xml:space="preserve">
+    <value>Ürün adı göz ardı edilemez!</value>
+  </data>
+  <data name="The product name cannot be null!" xml:space="preserve">
+    <value>Ürün adı boş olamaz!</value>
+  </data>
+  <data name="The unit price cannot be ignored!" xml:space="preserve">
+    <value>Birim fiyatı göz ardı edilemez!</value>
+  </data>
+  <data name="The unit price cannot be null!" xml:space="preserve">
+    <value>Birim fiyatı boş olamaz!</value>
+  </data>
+  <data name="This email has already been registered." xml:space="preserve">
+    <value>Bu e-mail daha önce kayıt olmuş.</value>
+  </data>
+  <data name="Tops" xml:space="preserve">
+    <value>Üstler</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Toplam</value>
+  </data>
+  <data name="TOTAL PRODUCTS" xml:space="preserve">
+    <value>TOPLAM ÜRÜNLER</value>
+  </data>
+  <data name="UnitPrice" xml:space="preserve">
+    <value>Birim Fiyatı</value>
+  </data>
+  <data name="UNİSEX PRODUCTS" xml:space="preserve">
+    <value>UNİSEX ÜRÜNLER</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Güncelle</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Kullanıcı</value>
+  </data>
+  <data name="User session not found. Please log in." xml:space="preserve">
+    <value>Kullanıcı oturumu bulunamadı. Lütfen giriş yapın.</value>
+  </data>
+  <data name="Validation failed. Please correct the errors and try again." xml:space="preserve">
+    <value>Doğrulama başarısız oldu. Lütfen hataları düzeltin ve tekrar deneyin.</value>
+  </data>
+  <data name="View Cart" xml:space="preserve">
+    <value>Sepetime Git</value>
+  </data>
+  <data name="Woman" xml:space="preserve">
+    <value>Kadın</value>
+  </data>
+  <data name="Women" xml:space="preserve">
+    <value>Kadınlar</value>
+  </data>
+  <data name="WOMEN PRODUCTS" xml:space="preserve">
+    <value>KADIN ÜRÜNLERİ</value>
+  </data>
+  <data name="You must enter the current password!" xml:space="preserve">
+    <value>Mevcut şifreyi girmelisiniz!</value>
+  </data>
+  <data name="You must enter your new password!" xml:space="preserve">
+    <value>Yeni şifrenizi girmelisiniz!</value>
+  </data>
+  <data name="Your account could not confirmed. Please register again." xml:space="preserve">
+    <value>Hesabınız doğrulanamadı. Lütfen tekrar kaydolun.</value>
+  </data>
+  <data name="Your Cart" xml:space="preserve">
+    <value>Sepetim</value>
+  </data>
+  <data name="Your e-mail is not found. Please check your e-mail." xml:space="preserve">
+    <value>Lütfen posta kutunuzu kontrol edin ve e-postanızı doğrulayın!</value>
+  </data>
+</root>

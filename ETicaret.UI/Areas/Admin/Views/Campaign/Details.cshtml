@@ -1,0 +1,64 @@
+﻿@model ETicaret.UI.Areas.Admin.Models.CampaignVMs.CampaignDetailVM
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="col-lg-7 mb-5">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-heading">@Localizer["Campaign Details"]</h4>
+            </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-3 font-weight-bold">@Localizer["Name"]</div>
+                <div class="col-md-9">@Model.Name</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-3 font-weight-bold">@Localizer["Start Date"]</div>
+                <div class="col-md-9">@Model.StartDate.ToString("yyyy-MM-dd")</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-3 font-weight-bold">@Localizer["End Date"]</div>
+                <div class="col-md-9">@Model.EndDate.ToString("yyyy-MM-dd")</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-3 font-weight-bold">@Localizer["Discount Percentage"]</div>
+                <div class="col-md-9">@Model.DiscountPercentage %</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-3 font-weight-bold">@Localizer["Campaign Status"]</div>
+                <div class="col-md-9">@Model.CampaignStatus</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-3 font-weight-bold">@Localizer["Is Active"]</div>
+                <div class="col-md-9">@Model.IsActive</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-3 font-weight-bold">@Localizer["Products"]</div>
+                <div class="col-md-9">
+                    @if (Model.ProductNames != null && Model.ProductNames.Any())
+                    {
+                        <ul class="list-unstyled">
+                            @foreach (var productName in Model.ProductNames)
+                            {
+                                    <li><i class="fa-circle"></i>@productName</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <span>@Localizer["No products available"]</span>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-right">
+            <a class="btn btn-outline-secondary" asp-action="Index">@Localizer["Back to List"]</a>
+        </div>
+    </div>
+  
+</div>
+

@@ -1,0 +1,136 @@
+﻿@model ETicaret.UI.Areas.Admin.Models.CampaignVMs.CampaignCreateVM
+@{
+    var today = DateTime.Now.ToString("yyyy-MM-ddTHH:mm");
+}
+
+<form asp-action="Create" enctype="multipart/form-data">
+    <div class="form-group mb-3">
+        <label for="NewImage"><strong>@Localizer["NewImage"]</strong></label>
+        <input type="file" asp-for="NewImage" class="form-control" />
+        <span asp-validation-for="NewImage" class="text-danger"></span>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="Name" class="form-control" type="text" placeholder=@Localizer["Name"] />
+        <label class="control-label">@Localizer["Name"]</label>
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="StartDate" id="StartDate" class="form-control" type="datetime-local" placeholder="" value="@today" />
+        <label class="control-label">@Localizer["Start Date"]</label>
+        <span asp-validation-for="StartDate" class="text-danger"></span>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="EndDate" id="EndDate" class="form-control" type="datetime-local" placeholder="" value="@today" />
+        <label class="control-label">@Localizer["End Date"]</label>
+        <span asp-validation-for="EndDate" class="text-danger"></span>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="DiscountPercentage" id="DiscountPercentage" class="form-control" type="range" min="0" max="100" step="1" oninput="updateOutput(this.value)" />
+        <label class="control-label">@Localizer["Discount Percentage"]</label>
+        <input type="number" id="discountInput" class="form-control" min="0" max="100" step="1" oninput="updateRange(this.value)" />
+        <span asp-validation-for="DiscountPercentage" class="text-danger"></span>
+    </div>
+    <div class="campaign-status-container">
+        <label class="form-label"><strong>@Localizer["Campaign Type"]</strong></label>
+        <div class="form-check form-switch mb-3">
+            <input class="form-check-input" type="checkbox" id="campaignTypeSwitch" onchange="toggleCampaignType(this.checked)">
+            <label class="form-check-label" for="campaignTypeSwitch">@Localizer["Select Type"]</label>
+        </div>
+    </div>
+
+    <div id="productSection" class="mb-3">
+        <label class="form-label"><strong>@Localizer["Products"]</strong></label>
+        <select name="ProductIds" id="ProductIds" multiple class="form-control">
+            @foreach (var product in Model.ProductList)
+            {
+                <option value="@product.Value">@product.Text</option>
+            }
+        </select>
+        <span asp-validation-for="ProductIds" class="text-danger"></span>
+    </div>
+    <div id="categorySection" class="mb-3" style="display: none;">
+        <label class="form-label"><strong>@Localizer["Categories"]</strong></label>
+        <select name="CategoryIds" id="CategoryIds" multiple class="form-control">
+            @foreach (var category in Model.CategoryList)
+            {
+                <option value="@category.Value">@category.Text</option>
+            }
+        </select>
+        <span asp-validation-for="CategoryIds" class="text-danger"></span>
+    </div>
+    <button class="btn btn-outline-primary" type="submit"><strong>@Localizer["Create"]</strong></button>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script type="text/javascript">
+        new MultiSelectTag('ProductIds');
+        new MultiSelectTag('CategoryIds');
+
+        function updateOutput(value) {
+            document.getElementById('discountInput').value = value;
+        }
+
+        function updateRange(value) {
+            document.querySelector('input[type="range"]').value = value;
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById('discountInput').value = document.querySelector('input[type="range"]').value;
+        });
+
+        function toggleCampaignType(isChecked) {
+            if (isChecked) {
+                document.getElementById('productSection').style.display = 'none';
+                document.getElementById('categorySection').style.display = 'block';
+            } else {
+                document.getElementById('productSection').style.display = 'block';
+                document.getElementById('categorySection').style.display = 'none';
+            }
+        }
+
+        document.querySelector('form').addEventListener('submit', function (event) {
+            var startDate = new Date(document.getElementById('StartDate').value);
+            var endDate = new Date(document.getElementById('EndDate').value);
+            var now = new Date();
+
+            // Start date'nin şu anki tarihten küçük olmasını kontrol et
+            if (startDate < now) {
+                var startDateInput = document.getElementById('StartDate');
+                startDateInput.setCustomValidity('@Localizer["Start date must be later than the current date and time."]');
+                startDateInput.reportValidity();
+                event.preventDefault(); // form gönderimini engelle
+                return;
+            }
+
+            if (endDate <= startDate) {
+                var endDateInput = document.getElementById('EndDate');
+                endDateInput.setCustomValidity('@Localizer["End date must be greater than start date."]');
+                endDateInput.reportValidity();
+                event.preventDefault(); // form gönderimini engelle
+                return;
+            }
+
+            if (endDate <= now) {
+                var endDateInput = document.getElementById('EndDate');
+                endDateInput.setCustomValidity('@Localizer["End date must be later than the current date and time."]');
+                endDateInput.reportValidity();
+                event.preventDefault(); // form gönderimini engelle
+            } else {
+                document.getElementById('EndDate').setCustomValidity('');
+            }
+        });
+
+        document.getElementById('StartDate').addEventListener('change', function () {
+            var startDateInput = document.getElementById('StartDate');
+            var endDateInput = document.getElementById('EndDate');
+            startDateInput.setCustomValidity('');
+            endDateInput.setCustomValidity('');
+        });
+
+        document.getElementById('EndDate').addEventListener('change', function () {
+            var endDateInput = document.getElementById('EndDate');
+            endDateInput.setCustomValidity('');
+        });
+    </script>
+</form>

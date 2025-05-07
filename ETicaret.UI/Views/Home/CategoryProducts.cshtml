@@ -1,0 +1,91 @@
+﻿@model ETicaret.UI.Models.CategoryVMs.CategoryProductListVm
+
+@{
+    // Sabit bir dönüşüm oranı belirliyoruz. Bu oranı gerçek verilerle değiştirmeniz gerekebilir.
+    // const decimal conversionRate = 0.036m; // Örneğin, 1 TL = 0.036 USD
+
+    // Mevcut kültürü alıyoruz.
+    var currentCulture = System.Globalization.CultureInfo.CurrentCulture.Name;
+}
+
+<section class="py-12">
+    <div class="container" style="max-width: 1500px;">
+        <div class="row">
+            <div class="col-12">
+                <div class="text-center mb-5">
+                    <h2 class="fw-bold text-uppercase position-relative d-inline-block">
+                        @Model.CategoryName
+                        <span class="position-absolute top-100 start-50 translate-middle-x border-bottom border-primary" style="width: 50%;"></span>
+                    </h2>
+                    <p class="lead text-muted mt-3">
+                        @Model.CategoryName 'e ait ürünler
+                    </p>
+                </div>
+                <!-- Content -->
+                <div class="row mt-7">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @foreach (var product in Model.Products)
+                        {
+                            var unitPriceInUsd = product.UnitPrice / Model.Exchange;
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                                <div class="card" style="width: 18rem;">
+                                    <!-- Image -->
+                                    @if (product.Image is null)
+                                    {
+                                        <img src="assets/img/products/default-product.jpg" alt="..." class="card-img-top" style="height: 200px; object-fit: cover;" title="@product.Description">
+                                    }
+                                    else
+                                    {
+                                        <img class="card-img-top" src="@($"data:image/png;base64,{Convert.ToBase64String(product.Image)}")" alt="..." style="height: 200px; object-fit: cover;" title="@product.Description">
+                                    }
+                                    <!-- Body -->
+                                    <div class="card-body text-center">
+
+                                        <h5 class="card-title">@product.Name</h5>
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            @if (currentCulture == "tr")
+                                            {
+                                                <p class="card-text">₺@product.UnitPrice.ToString("F2", new System.Globalization.CultureInfo("tr"))</p>
+                                            }
+                                            else
+                                            {
+                                                <p class="card-text">$@unitPriceInUsd.ToString("F2")</p>
+                                            }
+                                        }
+                                        <a href="@Url.Action("Product", "Home", new { id = product.Id })" class="btn btn-primary">@Localizer["Sepete Ekle"]</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        @foreach (var product in Model.Products)
+                        {
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                                <div class="card" style="width: 18rem;">
+                                    <!-- Image -->
+                                    @if (product.Image is null)
+                                    {
+                                        <img src="assets/img/products/default-product.jpg" alt="..." class="card-img-top" style="height: 200px; object-fit: cover;" title="@product.Description">
+                                    }
+                                    else
+                                    {
+                                        <img class="card-img-top" src="@($"data:image/png;base64,{Convert.ToBase64String(product.Image)}")" alt="..." style="height: 200px; object-fit: cover;" title="@product.Description">
+                                    }
+                                    <!-- Body -->
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title">@product.Name</h5>
+                                        <p class="card-text">Giriş Yapmalısınız!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,106 @@
+﻿@model IEnumerable<ETicaret.UI.Models.CatalogVMs.CatalogViewModel>
+
+
+<div class="dropdown-menu w-100">
+    <div class="card card-lg">
+        <div class="card-body">
+            <div class="container">
+                <div class="row">
+                    @foreach (var genderGroup in Model.GroupBy(c => c.Gender))
+                    {
+                        <div class="col-4 col-md">
+                            <!-- Heading -->
+                            <div class="mb-5 fw-bold">@genderGroup.Key</div>
+
+                            <!-- Links -->
+                            <ul class="list-styled mb-0 fs-sm">
+                                @foreach (var category in genderGroup)
+                                {
+                                    <li class="list-styled-item">
+                                        <a class="list-styled-link" href="@Url.Action("CategoryProducts", "Home", new { id = category.CategoryId })">@category.CategoryName</a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    }
+                    <div class="d-none d-md-flex flex-column col-md-3">
+                        @foreach (var genderGroup in Model.GroupBy(c => c.Gender))
+                        {
+
+                            <!-- Kadınlar Kartı -->
+                            @if (genderGroup.Key == ETicaret.Domain.Enums.Gender.Woman.ToString())
+                            {
+                                var firstItem = genderGroup.FirstOrDefault();
+                                <div class="card mb-7 bg-cover" style="min-height: 150px;">
+                                    <!-- Background -->
+                                    <div class="card-bg">
+                                        <div class="card-bg-img bg-cover" style="background-image: url('@($"data:image/png;base64,{Convert.ToBase64String(firstItem?.Image ?? new byte[0])}")');"></div>
+                                    </div>
+                                    <!-- Body -->
+                                    <div class="card-body my-auto px-7">
+                                        <a class="stretched-link fw-bold text-body" href="@Url.Action("CategoryProducts", "Home", new { id = firstItem?.CategoryId })">
+                                            Women's Collection
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+                            <!-- Erkekler Kartı -->
+                            @if (genderGroup.Key == ETicaret.Domain.Enums.Gender.Man.ToString())
+                            {
+                                var firstItem = genderGroup.FirstOrDefault();
+                                <div class="card  bg-cover" style="min-height: 150px;">
+                                    <!-- Background -->
+                                    <div class="card-bg">
+                                        <div class="card-bg-img bg-cover" style="background-image: url('@($"data:image/png;base64,{Convert.ToBase64String(firstItem?.Image ?? new byte[0])}")');"></div>
+                                    </div>
+                                    <!-- Body -->
+                                    <div class="card-body my-auto px-7">
+                                        <a class="stretched-link fw-bold text-body" href="@Url.Action("CategoryProducts", "Home", new { id = firstItem?.CategoryId })">
+                                            Men's Collection
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+
+
+
+                        }
+                    </div>
+                    <div class="d-none d-md-flex flex-column col-md-3">
+                        @foreach (var genderGroup in Model.GroupBy(c => c.Gender))
+                        {
+
+                            <!-- Unisex Kartı -->
+                            @if (genderGroup.Key == ETicaret.Domain.Enums.Gender.Unisex.ToString())
+                            {
+                                var firstItem = genderGroup.FirstOrDefault();
+                                <div class="card bg-cover" style="min-height: 330px;">
+                                    <!-- Background -->
+                                    <div class="card-bg">
+                                        <div class="card-bg-img bg-cover" style="background-image: url('@($"data:image/png;base64,{Convert.ToBase64String(firstItem?.Image ?? new byte[0])}")');"></div>
+                                    </div>
+                                    <!-- Body -->
+                                    <div class="card-body my-auto text-center">
+                                        <a class="stretched-link text-white" href="@Url.Action("CategoryProducts", "Home", new { id = firstItem?.CategoryId })">
+                                            <h1 class="mb-1 fw-bolder text-uppercase">NEW</h1>
+                                            <h6>Unisex Collection</h6>
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+
+
+                        }
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

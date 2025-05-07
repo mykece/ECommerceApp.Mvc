@@ -1,0 +1,154 @@
+﻿@model ETicaret.UI.Models.AccountVMs.CustomerProfileVM
+
+@{
+    ViewData["Title"] = @Localizer["Profile"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@Localizer["Profile"]</h1>
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div>
+                    <dl class="row">
+                        <dt class="col-sm-3">
+                            @Localizer[Html.DisplayNameFor(model => model.FirstName).ToString()] :
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.FirstName)
+                        </dd>
+                        <dt class="col-sm-3">
+                            @Localizer[@Html.DisplayNameFor(model => model.LastName).ToString()] :
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.LastName)
+                        </dd>
+                        <dt class="col-sm-3">
+                            @Html.DisplayNameFor(model => model.Email) :
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.Email)
+                        </dd>
+                        <dt class="col-sm-3">
+                            @Localizer[@Html.DisplayNameFor(model => model.PhoneNumber).ToString()] :
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.PhoneNumber)
+                        </dd>
+                        <dt class="col-sm-3">
+                            @Localizer[@Html.DisplayNameFor(model => model.Gender).ToString()] :
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.Gender)
+                        </dd>
+                        <dt class="col-sm-3">
+                            @Localizer[@Html.DisplayNameFor(model => model.DateOfBirth).ToString()] :
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.DateOfBirth)
+                        </dd>
+                    </dl>
+                </div>
+                <div>
+                    <a class="btn btn-sm btn-outline-warning" asp-action="Index">@Localizer["Back to List"]</a>
+                </div>
+
+                <div class="mt-4">
+                    <h4>@Localizer["Addresses"]</h4>
+                   @*  <a asp-action="CreateAddress" class="btn btn-primary mb-3" data-style ="zoom-out">Yeni Adres Ekle</a> *@
+                    <a href="@Url.Action("CreateAddress", "Account")" class="btn btn-info btn-create-new ladda-button mb-1" data-style="zoom-out">
+                        <span class="ladda-label">@Localizer["Create New Address"]</span>
+                    </a>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Localizer[@Html.DisplayNameFor(model => model.Addresses.First().AddressName).ToString()]
+                                </th>
+                                <th>
+                                    @Localizer[@Html.DisplayNameFor(model => model.Addresses.First().Address).ToString()]
+                                </th>
+@*                                 <th>
+                                    @Html.DisplayNameFor(model => model.Addresses.First().AddressDate)
+                                </th> *@
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var address in Model.Addresses)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => address.AddressName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => address.Address)
+                                    </td>
+@*                                     <td>
+                                        @Html.DisplayFor(modelItem => address.AddressDate)
+                                    </td> *@
+                                    <td>
+                                        @* @Html.ActionLink("Edit", "UpdateAddress", new { id = address.Id }, new { @class = "btn btn-sm btn-warning" }) *@
+                                        @Html.ActionLink("Delete", "DeleteAddress", new { id = address.Id }, new { @class = "btn btn-sm btn-outline-primary" })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Create Modal-->
+
+<div class="modal fade" id="addressCreateModal" tabindex="-1" aria-labelledby="addressCreateModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="card-heading" id="addressCreateModalLabel">@Localizer["Create New Address"]</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="addressCreateModalContent"></div>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-outline-secondary w-100" asp-action="Profile">@Localizer["Back to List"]</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+    <script>
+        //Create
+        $(document).ready(function () {
+            $(".btn-create-new").click(function (event) {
+                event.preventDefault();
+                $.get($(this).attr("href"), function (data) {
+                    $("#addressCreateModalContent").html(data);
+                    $("#addressCreateModal").modal("show");
+                });
+            });
+        });
+
+    </script>
+
+
+
+
+
+
+}

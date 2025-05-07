@@ -1,0 +1,65 @@
+﻿@model IEnumerable<ETicaret.UI.Areas.Admin.Models.CustomerVMs.CustomerAddressListVM>
+
+
+@* <table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AddressName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AddressName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-outline-primary me-1" asp-area="Admin" asp-controller="Customer" asp-action="DeleteCustomerAddress" asp-route-id="@item.Id">@Localizer["Delete"]</a> *@
+@*                     @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }) *@
+@*                 </td>
+            </tr>
+        }
+    </tbody>
+</table> *@
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Localizer["Address Name"]
+            </th>
+            <th>
+                @Localizer["Address"]
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AddressName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-outline-primary me-1" asp-area="Admin" asp-controller="Customer" asp-action="DeleteCustomerAddress" asp-route-id="@item.Id">@Localizer["Delete"]</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

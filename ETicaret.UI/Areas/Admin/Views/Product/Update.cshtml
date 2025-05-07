@@ -1,0 +1,108 @@
+﻿@model ETicaret.UI.Areas.Admin.Models.ProductVMs.ProductUpdateVM
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="col-lg-7 mb-5">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-heading">@Localizer["Product Update"]</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create">
+                    <div class="form-floating mb-3">
+                        <input asp-for="Name" class="form-control" id="floatingInputName" type="text" placeholder="Ali">
+                        <label for="floatingInputName">@Localizer["Name"]</label>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="floatingInputDescription" class="form-label">@Localizer["Description"]</label>
+                        <textarea asp-for="Description" class="form-control" id="floatingInputDescription" rows="5"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="UnitPrice" class="form-control" id="floatingInputUnitPrice" type="number" placeholder="example@bilgeadam.com">
+                        <label for="floatingInputUnitPrice">@Localizer["UnitPrice"]</label>
+                        <span asp-validation-for="UnitPrice" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Quantity" class="form-control" id="floatingInputUnitPrice" type="number" placeholder="example@bilgeadam.com">
+                        <label for="floatingInputUnitPrice">@Localizer["Quantity"]</label>
+                        <span asp-validation-for="Quantity" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <select asp-for="CategoryId" class="form-select" id="CategoryDropdown">
+                            <option value="">@Localizer["Select Category"]</option>
+                            @foreach (var category in Model.Categories)
+                            {
+                                <option value="@category.Value">@category.Text</option>
+                            }
+                        </select>
+                        <label for="CategoryDropdown">@Localizer["Category"]</label>
+                        <span asp-validation-for="CategoryId" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <select asp-for="SizeId" class="form-select" id="SizeDropdown">
+                            <option value="">@Localizer["Select Size"]</option>
+                        </select>
+                        <label for="SizeDropdown">@Localizer["Size"]</label>
+                        <span asp-validation-for="SizeId" class="text-danger"></span>
+                    </div>
+                    <button class="btn btn-outline-primary" type="submit">@Localizer["Submit"]</button>
+                </form>
+            </div>
+            <div class="card-footer">
+                <a class="btn btn-outline-secondary" asp-action="Index">@Localizer["Back to List"]</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#CategoryDropdown').change(function () {
+                var selectedCategoryId = $(this).val();
+                if (selectedCategoryId) {
+                    $.ajax({
+                        url: '@Url.Action("GetSizesByCategoryId", "Product", new { area = "Admin" })',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: { categoryId: selectedCategoryId },
+                        success: function (data) {
+                            var sizeDropdown = $('#SizeDropdown');
+                            sizeDropdown.empty();
+                            sizeDropdown.append($('<option/>', {
+                                value: '',
+                                text: '@Localizer["Select Size"]'
+                            }));
+                            $.each(data, function (index, size) {
+                                sizeDropdown.append($('<option/>', {
+                                    value: size.value,
+                                    text: size.text
+                                }));
+                            });
+                        },
+                        error: function () {
+                            alert('@Localizer["An error occurred while retrieving the sizes."]');
+                        }
+                    });
+                } else {
+                    $('#SizeDropdown').empty();
+                    $('#SizeDropdown').append($('<option/>', {
+                        value: '',
+                        text: '@Localizer["Select Size"]'
+                    }));
+                }
+            });
+        });
+    </script>
+}

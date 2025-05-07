@@ -1,0 +1,95 @@
+﻿@model ETicaret.UI.Areas.Admin.Models.ProductVMs.ProductCountVM
+
+
+<section class="mb-3 mb-lg-5">
+    <div class="row mb-3">
+        <!-- Toplam Ürünler -->
+        <div class="col-sm-6 col-lg-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <div class="row gx-1">
+                        <div class="col">
+                            <svg class="svg-icon text-red mb-3">
+                                <use xlink:href="icons/orion-svg-sprite.71e9f5f2.svg#speed-1"></use>
+                            </svg>
+                        </div>
+                        <div class="col text-end">
+                            <h4 class="h3 mb-1 text-red">@Model.TotalProducts</h4>
+                            <p class="subtitle text-gray-600 mb-1">@Localizer["TOTAL PRODUCTS"]</p>
+                        </div>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg-red" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Kadın Ürünleri -->
+        <div class="col-sm-6 col-lg-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <div class="row gx-1">
+                        <div class="col">
+                            <svg class="svg-icon text-blue mb-3">
+                                <use xlink:href="icons/orion-svg-sprite.71e9f5f2.svg#news-1"></use>
+                            </svg>
+                        </div>
+                        <div class="col text-end">
+                            <h4 class="h3 mb-1 text-blue">@Model.WomenProducts</h4>
+                            <p class="subtitle text-gray-600 mb-1">@Localizer["WOMEN PRODUCTS"]</p>
+                        </div>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="@((double)Model.WomenProducts / Model.TotalProducts * 100)" aria-valuemin="0" aria-valuemax="100" style="width:@((double)Model.WomenProducts / Model.TotalProducts * 100)%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Erkek Ürünleri -->
+        <div class="col-sm-6 col-lg-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <div class="row gx-1">
+                        <div class="col">
+                            <svg class="svg-icon text-primary mb-3">
+                                <use xlink:href="icons/orion-svg-sprite.71e9f5f2.svg#bookmark-1"></use>
+                            </svg>
+                        </div>
+                        <div class="col text-end">
+                            <h4 class="h3 mb-1 text-primary">@Model.MenProducts</h4>
+                            <p class="subtitle text-gray-600 mb-1">@Localizer["MEN PRODUCTS"]</p>
+                        </div>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="@((double)Model.MenProducts / Model.TotalProducts * 100)" aria-valuemin="0" aria-valuemax="100" style="width:@((double)Model.MenProducts / Model.TotalProducts * 100)%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Unisex Ürünleri -->
+        <div class="col-sm-6 col-lg-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <div class="row gx-1">
+                        <div class="col">
+                            <svg class="svg-icon text-orange mb-3">
+                                <use xlink:href="icons/orion-svg-sprite.71e9f5f2.svg#world-map-1"> </use>
+                            </svg>
+                        </div>
+                        <div class="col text-end">
+                            <h4 class="h3 mb-1 text-orange">@Model.UnisexProducts</h4>
+                            <p class="subtitle text-gray-600 mb-1">@Localizer["UNİSEX PRODUCTS"]</p>
+                        </div>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg-orange" role="progressbar" aria-valuenow="@((double)Model.UnisexProducts / Model.TotalProducts * 100)" aria-valuemin="0" aria-valuemax="100" style="width:@((double)Model.UnisexProducts / Model.TotalProducts * 100)%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

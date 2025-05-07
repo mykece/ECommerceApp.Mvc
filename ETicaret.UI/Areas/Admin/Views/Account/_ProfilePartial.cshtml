@@ -1,0 +1,69 @@
+﻿@using System.Security.Claims
+@inject Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer<ModelResource> Localizer
+@model ETicaret.Applicationn.DTOs.AdminDTOs.AdminDTO
+
+@{
+    ViewData["Title"] = Localizer["Admin Profile"];
+}
+
+@* <div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card"> *@
+                <div class="card-header text-center">
+                    <h3>@Localizer["Admin Profile"]</h3>
+                    <h3>Role: @User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value</h3>
+                </div>
+                <div class="card-body text-center">
+                    @if (Model.Image != null && Model.Image.Length > 0)
+                    {
+                        string base64Image = Convert.ToBase64String(Model.Image);
+                        <img src="data:image/jpeg;base64,@base64Image" alt="Admin Profile Picture" class="img-thumbnail mb-3" style="max-width: 150px;">
+                    }
+                    else
+                    {
+                       <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y" alt="Default Profile Picture" class="img-thumbnail mb-3" style="max-width: 150px;">
+                    }
+                    <p><strong>@Localizer["Name"]:</strong> @Model.FirstName</p>
+                    <p><strong>@Localizer["Surname"]:</strong> @Model.LastName</p>
+                    <p><strong>@Localizer["Email"]:</strong> @Model.Email</p>
+                </div>
+                @* <div class="card-body text-center">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#changePasswordModal">@Localizer["Change Password"]</button>
+                </div> *@
+      @*       </div>
+        </div>
+    </div>
+</div>
+ *@
+
+@* <!-- Change Password Modal -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="card-heading" id="changePasswordModalLabel">@Localizer["Change Password"]</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!--  Change Password Form İçeriği Buraya Eklenecek-->
+                <partial name="_ChangePasswordPartial" model="new ETicaret.UI.Areas.Admin.Models.AccountVMs.ChangePasswordVM { Id = Model.Id }" />
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-outline-secondary" asp-action="Profile">@Localizer["Back to Profile"]</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#changePasswordModal').on('show.bs.modal', function (e) {
+                var url = '@Url.Action("ChangePassword", "Account", new { area = "Admin", id = Model.Id })';
+                $('#modalContent').load(url);
+            });
+        });
+    </script>
+} *@

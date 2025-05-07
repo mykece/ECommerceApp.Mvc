@@ -1,0 +1,97 @@
+﻿@model ETicaret.UI.Areas.Admin.Models.CategoryVMs.CategoryUpdateVM
+
+
+<form asp-action="Update" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group mb-3">
+        <label for="floatingInputName">@Localizer["NewImage"]</label>
+        <input type="file" asp-for="NewImage" class="form-control" />
+        <span asp-validation-for="NewImage" class="text-danger"></span>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="Name" class="form-control" type="text" placeholder="" />
+        <label for="floatingInputName">@Localizer["Name"]</label>
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="Description" class="form-control" />
+        <label for="floatingInputName">@Localizer["Description"]</label>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+   @*  <div class="form-floating mb-3">
+        <select asp-for="SizeTypeId" class="form-select" id="CategoryDropdown">
+            <option value="">@Localizer["Select Size Type"]</option>
+            @foreach (var size in Model.SizeTypes)
+            {
+                <option value="@size.Value">@size.Text</option>
+            }
+        </select>
+        <label for="CategoryDropdown">@Localizer["Size"]</label>
+        <span asp-validation-for="SizeTypeId" class="text-danger"></span>
+    </div> *@
+    <div class="mb-3">
+        <label class="form-label">@Localizer["Select Size Types"]</label>
+        <div>
+            @foreach (var size in Model.SizeTypes)
+            {
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="@size.Value" name="SizeTypeIds" id="size_@size.Value">
+                    <label class="form-check-label" for="size_@size.Value">
+                        @size.Text
+                    </label>
+                </div>
+            }
+        </div>
+        <span asp-validation-for="SizeTypeIds" class="text-danger"></span>
+    </div>
+    <button class="btn btn-outline-primary" type="submit">@Localizer["Update"]</button>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script type="text/javascript" src="~/js/virtual-select.min.js"></script>
+    <script type="text/javascript">
+        VirtualSelect.init({
+            ele: '#multipleSelect',
+            placeholder: 'Select Size Types',
+            multiple: true
+        });
+
+        document.querySelector('form').addEventListener('submit', function (event) {
+            var select = document.querySelector('#multipleSelect');
+            var selectedValues = select.value ? select.value.split(',') : [];
+
+            // Remove existing hidden inputs to avoid duplicates
+            document.querySelectorAll('input[name="SizeTypeIds"]').forEach(input => input.remove());
+
+            selectedValues.forEach(function (value) {
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'SizeTypeIds';
+                input.value = value;
+                event.target.appendChild(input);
+            });
+        });
+    </script>
+    <style>
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-check {
+            margin-bottom: 0.5rem;
+        }
+
+        .form-check-input {
+            margin-right: 0.5rem;
+        }
+
+        .form-check-label {
+            margin-bottom: 0;
+        }
+    </style>
+
+</form>
+
+
